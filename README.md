@@ -22,6 +22,6 @@ This starter uses plain HTML, CSS, and JavaScript, so it does not need Node.js o
 
 - `index.html` contains the page content and calculator form.
 - `styles.css` controls the layout and appearance.
-- `app.js` calculates the estimated payment.
+- `app.js` calculates results for both tools.
 
 The project is connected to the [`financial-tools` GitHub repository](https://github.com/22Fedsie/financial-tools).
