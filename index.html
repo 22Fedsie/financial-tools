@@ -66,7 +66,7 @@
           </div>
           <span class="badge">Second tool</span>
         </div>
-        <p class="card-description">Estimate the future value of an initial investment plus regular monthly contributions.</p>
+        <p class="card-description">Project your investment balance and estimate the monthly savings needed to reach a target.</p>
 
         <form id="investment-form">
           <label>
@@ -76,6 +76,10 @@
           <label>
             Monthly contribution
             <span class="input-wrap"><span aria-hidden="true">$</span><input id="monthly-contribution" name="monthlyContribution" type="number" min="0" step="25" value="500" required /></span>
+          </label>
+          <label>
+            Savings goal
+            <span class="input-wrap"><span aria-hidden="true">$</span><input id="savings-goal" name="savingsGoal" type="number" min="1000" step="1000" value="250000" required /></span>
           </label>
           <label>
             Estimated annual return
@@ -94,6 +98,10 @@
           <div class="result-stats">
             <div><span>Total contributions</span><b id="total-contributions">—</b></div>
             <div><span>Estimated growth</span><b id="investment-growth">—</b></div>
+          </div>
+          <div class="goal-summary">
+            <div><span>Monthly contribution to reach your goal</span><b id="required-contribution">—</b></div>
+            <p id="goal-status"></p>
           </div>
           <small>Illustration only. Assumes monthly compounding and contributions at the end of each month. Returns vary and are not guaranteed. Excludes fees, taxes, and inflation.</small>
         </div>

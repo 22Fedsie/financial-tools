@@ -39,12 +39,15 @@ const investmentResult = document.querySelector("#investment-result");
 const endingValue = document.querySelector("#ending-value");
 const totalContributions = document.querySelector("#total-contributions");
 const investmentGrowth = document.querySelector("#investment-growth");
+const requiredContribution = document.querySelector("#required-contribution");
+const goalStatus = document.querySelector("#goal-status");
 
 investmentForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const startingAmount = Number(investmentForm.elements.startingAmount.value);
   const monthlyContribution = Number(investmentForm.elements.monthlyContribution.value);
+  const savingsGoal = Number(investmentForm.elements.savingsGoal.value);
   const annualReturn = Number(investmentForm.elements.annualReturn.value) / 100;
   const years = Number(investmentForm.elements.years.value);
   const months = years * 12;
@@ -58,10 +61,22 @@ investmentForm.addEventListener("submit", (event) => {
     : monthlyContribution * (growthFactor - 1) / monthlyRate;
   const projectedValue = futureStartingAmount + futureContributions;
   const contributed = startingAmount + monthlyContribution * months;
+  const contributionFactor = monthlyRate === 0
+    ? months
+    : (growthFactor - 1) / monthlyRate;
+  const monthlyNeededRaw = Math.max(0, (savingsGoal - futureStartingAmount) / contributionFactor);
+  const monthlyNeeded = Math.ceil(monthlyNeededRaw * 100) / 100;
+  const difference = projectedValue - savingsGoal;
 
   endingValue.textContent = formatMoney(projectedValue);
   totalContributions.textContent = formatMoney(contributed);
   investmentGrowth.textContent = formatMoney(projectedValue - contributed);
+  requiredContribution.textContent = formatMoney(monthlyNeeded);
+  if (difference >= 0) {
+    goalStatus.textContent = `At this pace, the projection is ${formatMoney(difference)} above your goal.`;
+  } else {
+    goalStatus.textContent = `At this pace, the projection is ${formatMoney(Math.abs(difference))} below your goal. Increase your monthly contribution by about ${formatMoney(Math.max(0, monthlyNeeded - monthlyContribution))} to reach it.`;
+  }
   investmentResult.hidden = false;
 });
 
