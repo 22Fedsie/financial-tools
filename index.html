@@ -12,6 +12,10 @@
     <header class="site-header">
       <a class="brand" href="./" aria-label="Financial Tools home">Financial Tools</a>
       <span class="header-note">Clear numbers. Better decisions.</span>
+      <nav class="site-nav" aria-label="Calculators">
+        <a href="#mortgage">Mortgage</a>
+        <a href="#investment">Investment growth</a>
+      </nav>
     </header>
 
     <main>
@@ -21,7 +25,7 @@
         <p>Simple, practical tools to help you understand the numbers.</p>
       </section>
 
-      <section class="calculator-card" aria-labelledby="mortgage-title">
+      <section id="mortgage" class="calculator-card" aria-labelledby="mortgage-title">
         <div class="card-heading">
           <div>
             <p class="eyebrow">Mortgage calculator</p>
@@ -51,6 +55,47 @@
           <span>Estimated monthly payment</span>
           <strong id="payment">—</strong>
           <small>Estimate only. Does not include property tax, insurance, or other costs.</small>
+        </div>
+      </section>
+
+      <section id="investment" class="calculator-card" aria-labelledby="investment-title">
+        <div class="card-heading">
+          <div>
+            <p class="eyebrow">Investment growth</p>
+            <h2 id="investment-title">See how savings could grow</h2>
+          </div>
+          <span class="badge">Second tool</span>
+        </div>
+        <p class="card-description">Estimate the future value of an initial investment plus regular monthly contributions.</p>
+
+        <form id="investment-form">
+          <label>
+            Starting investment
+            <span class="input-wrap"><span aria-hidden="true">$</span><input id="starting-amount" name="startingAmount" type="number" min="0" step="100" value="10000" required /></span>
+          </label>
+          <label>
+            Monthly contribution
+            <span class="input-wrap"><span aria-hidden="true">$</span><input id="monthly-contribution" name="monthlyContribution" type="number" min="0" step="25" value="500" required /></span>
+          </label>
+          <label>
+            Estimated annual return
+            <span class="input-wrap"><input id="annual-return" name="annualReturn" type="number" min="-99.9" max="100" step="0.1" value="7" required /><span aria-hidden="true">%</span></span>
+          </label>
+          <label>
+            Time invested
+            <span class="input-wrap"><input id="investment-years" name="years" type="number" min="1" max="60" step="1" value="20" required /><span>years</span></span>
+          </label>
+          <button type="submit">Estimate growth</button>
+        </form>
+
+        <div id="investment-result" class="result" aria-live="polite" hidden>
+          <span>Estimated ending value</span>
+          <strong id="ending-value">—</strong>
+          <div class="result-stats">
+            <div><span>Total contributions</span><b id="total-contributions">—</b></div>
+            <div><span>Estimated growth</span><b id="investment-growth">—</b></div>
+          </div>
+          <small>Illustration only. Assumes monthly compounding and contributions at the end of each month. Returns vary and are not guaranteed. Excludes fees, taxes, and inflation.</small>
         </div>
       </section>
     </main>

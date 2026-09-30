@@ -8,6 +8,10 @@ const currency = new Intl.NumberFormat("en-CA", {
   maximumFractionDigits: 2,
 });
 
+function formatMoney(amount) {
+  return currency.format(amount);
+}
+
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -29,3 +33,36 @@ form.addEventListener("submit", (event) => {
 });
 
 form.requestSubmit();
+
+const investmentForm = document.querySelector("#investment-form");
+const investmentResult = document.querySelector("#investment-result");
+const endingValue = document.querySelector("#ending-value");
+const totalContributions = document.querySelector("#total-contributions");
+const investmentGrowth = document.querySelector("#investment-growth");
+
+investmentForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const startingAmount = Number(investmentForm.elements.startingAmount.value);
+  const monthlyContribution = Number(investmentForm.elements.monthlyContribution.value);
+  const annualReturn = Number(investmentForm.elements.annualReturn.value) / 100;
+  const years = Number(investmentForm.elements.years.value);
+  const months = years * 12;
+
+  // Convert the estimated effective annual return to a monthly rate.
+  const monthlyRate = (1 + annualReturn) ** (1 / 12) - 1;
+  const growthFactor = (1 + monthlyRate) ** months;
+  const futureStartingAmount = startingAmount * growthFactor;
+  const futureContributions = monthlyRate === 0
+    ? monthlyContribution * months
+    : monthlyContribution * (growthFactor - 1) / monthlyRate;
+  const projectedValue = futureStartingAmount + futureContributions;
+  const contributed = startingAmount + monthlyContribution * months;
+
+  endingValue.textContent = formatMoney(projectedValue);
+  totalContributions.textContent = formatMoney(contributed);
+  investmentGrowth.textContent = formatMoney(projectedValue - contributed);
+  investmentResult.hidden = false;
+});
+
+investmentForm.requestSubmit();

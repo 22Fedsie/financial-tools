@@ -13,6 +13,9 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.55 -
 .site-header { height: 76px; padding: 0 max(24px, calc((100% - 1080px) / 2)); display: flex; align-items: center; justify-content: space-between; background: #fff; border-bottom: 1px solid var(--line); }
 .brand { color: var(--ink); font-size: 1.08rem; font-weight: 750; text-decoration: none; letter-spacing: -.02em; }
 .header-note, .card-description, footer { color: var(--muted); }
+.site-nav { display: flex; gap: 18px; }
+.site-nav a { color: var(--accent-dark); font-size: .88rem; font-weight: 650; text-decoration: none; }
+.site-nav a:hover { text-decoration: underline; }
 main { max-width: 1080px; margin: 0 auto; padding: 68px 24px 80px; }
 .intro { max-width: 680px; margin-bottom: 42px; }
 .eyebrow { color: var(--accent); font-size: .76rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 9px; }
@@ -35,6 +38,11 @@ button:focus-visible { outline: 3px solid #77bda4; outline-offset: 3px; }
 .result span { color: var(--muted); font-size: .9rem; }
 .result strong { color: var(--accent-dark); font-size: 2rem; line-height: 1.2; }
 .result small { margin-top: 5px; color: var(--muted); }
+.calculator-card + .calculator-card { margin-top: 24px; }
+.result-stats { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 8px; }
+.result-stats div { display: grid; }
+.result-stats b { color: var(--ink); font-size: .98rem; }
 footer { max-width: 1080px; margin: 0 auto; padding: 0 24px 30px; font-size: .83rem; }
 footer p { margin: 0; }
-@media (max-width: 600px) { .site-header { height: 64px; } .header-note { font-size: .78rem; } main { padding-top: 48px; } .calculator-card { padding: 23px 19px; } form { grid-template-columns: 1fr; gap: 15px; } button { grid-column: auto; } }
+@media (max-width: 760px) { .site-header { height: auto; min-height: 64px; padding-top: 14px; padding-bottom: 14px; flex-wrap: wrap; gap: 8px 16px; } .site-nav { order: 3; width: 100%; } }
+@media (max-width: 600px) { .header-note { font-size: .78rem; } main { padding-top: 48px; } .calculator-card { padding: 23px 19px; } form { grid-template-columns: 1fr; gap: 15px; } button { grid-column: auto; } }
