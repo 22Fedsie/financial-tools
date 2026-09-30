@@ -15,6 +15,7 @@
       <nav class="site-nav" aria-label="Calculators">
         <a href="#mortgage">Mortgage</a>
         <a href="#investment">Investment growth</a>
+        <a href="#debt">Debt payoff</a>
       </nav>
     </header>
 
@@ -104,6 +105,44 @@
             <p id="goal-status"></p>
           </div>
           <small>Illustration only. Assumes monthly compounding and contributions at the end of each month. Returns vary and are not guaranteed. Excludes fees, taxes, and inflation.</small>
+        </div>
+      </section>
+
+      <section id="debt" class="calculator-card" aria-labelledby="debt-title">
+        <div class="card-heading">
+          <div>
+            <p class="eyebrow">Debt payoff</p>
+            <h2 id="debt-title">Estimate your payoff timeline</h2>
+          </div>
+          <span class="badge">Third tool</span>
+        </div>
+        <p class="card-description">See how a fixed monthly payment could reduce a balance and how much interest it may cost.</p>
+
+        <form id="debt-form">
+          <label>
+            Current balance
+            <span class="input-wrap"><span aria-hidden="true">$</span><input id="debt-balance" name="balance" type="number" min="0.01" step="0.01" value="5000" required /></span>
+          </label>
+          <label>
+            Annual interest rate
+            <span class="input-wrap"><input id="debt-rate" name="annualRate" type="number" min="0" max="100" step="0.01" value="19.99" required /><span aria-hidden="true">%</span></span>
+          </label>
+          <label>
+            Monthly payment
+            <span class="input-wrap"><span aria-hidden="true">$</span><input id="debt-payment" name="monthlyPayment" type="number" min="0.01" step="0.01" value="250" required /></span>
+          </label>
+          <button type="submit">Estimate payoff</button>
+        </form>
+
+        <p id="debt-alert" class="form-alert" role="alert" hidden></p>
+        <div id="debt-result" class="result" aria-live="polite" hidden>
+          <span>Estimated time to pay off</span>
+          <strong id="debt-months">—</strong>
+          <div class="result-stats">
+            <div><span>Estimated interest</span><b id="debt-interest">—</b></div>
+            <div><span>Estimated total paid</span><b id="debt-total">—</b></div>
+          </div>
+          <small>Estimate uses monthly interest and a fixed payment. Credit card issuers may calculate interest daily and apply payments differently. Check your statement and agreement for exact terms.</small>
         </div>
       </section>
     </main>

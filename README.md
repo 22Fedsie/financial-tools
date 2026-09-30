@@ -6,8 +6,9 @@ Free, practical financial calculators and tools, with a growing library of advan
 
 - **Mortgage payment:** Estimates a monthly payment using a Canadian semi-annual interest-rate conversion. It excludes property tax, insurance, and other costs.
 - **Investment growth and savings goal:** Projects an ending value from an initial amount and monthly contributions, compares it with a target, and estimates the monthly contribution needed to reach that target. It converts the estimated annual return to a monthly rate and assumes contributions are made at the end of each month. Returns are uncertain; this is an illustration, not a forecast or recommendation.
+- **Debt payoff:** Estimates payoff time, interest, and total paid for a fixed monthly payment. It approximates interest monthly; actual credit-card issuers may calculate interest daily or apply payments differently.
 
-Planned next: debt payoff, rent-versus-buy, RRSP-versus-TFSA, and net worth calculators.
+Planned next: rent-versus-buy, RRSP-versus-TFSA, and net worth calculators.
 
 ## Run on your Mac
 

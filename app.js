@@ -81,3 +81,68 @@ investmentForm.addEventListener("submit", (event) => {
 });
 
 investmentForm.requestSubmit();
+
+const debtForm = document.querySelector("#debt-form");
+const debtResult = document.querySelector("#debt-result");
+const debtAlert = document.querySelector("#debt-alert");
+const debtMonths = document.querySelector("#debt-months");
+const debtInterest = document.querySelector("#debt-interest");
+const debtTotal = document.querySelector("#debt-total");
+
+function roundCents(amount) {
+  return Math.round((amount + Number.EPSILON) * 100) / 100;
+}
+
+debtForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  let balance = roundCents(Number(debtForm.elements.balance.value));
+  const monthlyRate = Number(debtForm.elements.annualRate.value) / 100 / 12;
+  const monthlyPayment = roundCents(Number(debtForm.elements.monthlyPayment.value));
+  const firstMonthInterest = roundCents(balance * monthlyRate);
+
+  debtResult.hidden = true;
+  debtAlert.hidden = true;
+
+  if (monthlyPayment <= firstMonthInterest) {
+    debtAlert.textContent = `The payment must be more than the estimated first month's interest (${formatMoney(firstMonthInterest)}) for the balance to go down.`;
+    debtAlert.hidden = false;
+    return;
+  }
+
+  let months = 0;
+  let interestPaid = 0;
+  let totalPaid = 0;
+  const maximumMonths = 1200;
+
+  while (balance > 0 && months < maximumMonths) {
+    const interest = roundCents(balance * monthlyRate);
+    const amountDue = roundCents(balance + interest);
+    const paymentThisMonth = Math.min(monthlyPayment, amountDue);
+    balance = roundCents(amountDue - paymentThisMonth);
+    interestPaid = roundCents(interestPaid + interest);
+    totalPaid = roundCents(totalPaid + paymentThisMonth);
+    months += 1;
+  }
+
+  if (balance > 0) {
+    debtAlert.textContent = "This payment would take more than 100 years to pay off the balance. Try a larger monthly payment.";
+    debtAlert.hidden = false;
+    return;
+  }
+
+  const years = Math.floor(months / 12);
+  const remainingMonths = months % 12;
+  const duration = years === 0
+    ? `${remainingMonths} ${remainingMonths === 1 ? "month" : "months"}`
+    : remainingMonths === 0
+      ? `${years} ${years === 1 ? "year" : "years"}`
+      : `${years} ${years === 1 ? "year" : "years"}, ${remainingMonths} ${remainingMonths === 1 ? "month" : "months"}`;
+
+  debtMonths.textContent = duration;
+  debtInterest.textContent = formatMoney(interestPaid);
+  debtTotal.textContent = formatMoney(totalPaid);
+  debtResult.hidden = false;
+});
+
+debtForm.requestSubmit();
