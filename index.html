@@ -3,15 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Practical financial calculators and tools." />
-    <title>Financial Tools</title>
+    <meta name="description" content="Free Canadian financial calculators for clearer decisions about mortgages, investing, debt, housing, and net worth." />
+    <meta name="theme-color" content="#f7f8f5" />
+    <title>Financial Tools | Clearer decisions start with the numbers</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to calculators</a>
     <header class="site-header">
-      <a class="brand" href="./" aria-label="Financial Tools home">Financial Tools</a>
-      <span class="header-note">Clear numbers. Better decisions.</span>
+      <a class="brand" href="./" aria-label="Financial Tools home"><span class="brand-mark" aria-hidden="true">F</span><span>Financial <b>Tools</b></span></a>
       <nav class="site-nav" aria-label="Calculators">
         <a href="#mortgage">Mortgage</a>
         <a href="#investment">Investment growth</a>
@@ -22,11 +23,36 @@
       </nav>
     </header>
 
-    <main>
+    <main id="main-content">
       <section class="intro" aria-labelledby="page-title">
-        <p class="eyebrow">Free financial calculators</p>
-        <h1 id="page-title">Make your next money decision with confidence.</h1>
-        <p>Simple, practical tools to help you understand the numbers.</p>
+        <div class="intro-copy">
+          <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Thoughtful tools for your money</p>
+          <h1 id="page-title">Feel clearer about your <span>next move.</span></h1>
+          <p>Make sense of the numbers behind home buying, saving, debt, and more—with practical calculators built for real decisions.</p>
+          <a class="primary-link" href="#calculator-guide">Explore the calculators <span aria-hidden="true">↓</span></a>
+          <div class="intro-notes"><span><i aria-hidden="true">✓</i> Free to use</span><span><i aria-hidden="true">✓</i> No account needed</span><span><i aria-hidden="true">✓</i> Canadian focused</span></div>
+        </div>
+        <div class="hero-visual" aria-label="Illustration of a growing investment balance">
+          <div class="hero-card-top"><span class="hero-card-icon" aria-hidden="true">↗</span><span>Small steps add up</span><span class="hero-dots" aria-hidden="true">•••</span></div>
+          <p class="hero-card-label">Your financial picture</p>
+          <strong class="hero-card-amount">$24,680<span>.50</span></strong>
+          <span class="hero-card-change">↗ &nbsp;Build a plan that works for you</span>
+          <div class="chart" aria-hidden="true"><span style="--bar:26%"></span><span style="--bar:39%"></span><span style="--bar:34%"></span><span style="--bar:50%"></span><span style="--bar:47%"></span><span style="--bar:63%"></span><span style="--bar:58%"></span><span style="--bar:77%"></span><span style="--bar:70%"></span><span style="--bar:91%"></span><span style="--bar:84%"></span><span style="--bar:100%"></span></div>
+          <div class="chart-labels"><span>Today</span><span>Your goals, over time</span></div>
+          <div class="hero-card-foot"><span><b></b> Plan with confidence</span><span>01 — 06</span></div>
+        </div>
+      </section>
+
+      <section id="calculator-guide" class="calculator-guide" aria-labelledby="guide-title">
+        <div class="section-intro"><div><p class="eyebrow">Your money, made clearer</p><h2 id="guide-title">Choose a calculator</h2></div><p>Start with the question on your mind. Adjust the numbers to explore your options.</p></div>
+        <div class="tool-grid">
+          <a href="#mortgage" class="tool-link"><span class="tool-icon">⌂</span><span><b>Mortgage</b><small>Estimate a monthly payment</small></span><i aria-hidden="true">↗</i></a>
+          <a href="#investment" class="tool-link"><span class="tool-icon">↗</span><span><b>Investment growth</b><small>Project savings toward a goal</small></span><i aria-hidden="true">↗</i></a>
+          <a href="#debt" class="tool-link"><span class="tool-icon">◷</span><span><b>Debt payoff</b><small>See time and interest to repay</small></span><i aria-hidden="true">↗</i></a>
+          <a href="#rent-buy" class="tool-link"><span class="tool-icon">⌂</span><span><b>Rent vs. buy</b><small>Compare two housing paths</small></span><i aria-hidden="true">↗</i></a>
+          <a href="#rrsp-tfsa" class="tool-link"><span class="tool-icon">▤</span><span><b>RRSP vs. TFSA</b><small>Compare estimated account values</small></span><i aria-hidden="true">↗</i></a>
+          <a href="#net-worth" class="tool-link"><span class="tool-icon">◎</span><span><b>Net worth</b><small>See what you own and owe</small></span><i aria-hidden="true">↗</i></a>
+        </div>
       </section>
 
       <section id="mortgage" class="calculator-card" aria-labelledby="mortgage-title">
@@ -35,7 +61,7 @@
             <p class="eyebrow">Mortgage calculator</p>
             <h2 id="mortgage-title">Estimate your payment</h2>
           </div>
-          <span class="badge">First tool</span>
+          <span class="badge">Home planning</span>
         </div>
         <p class="card-description">Enter the mortgage amount, annual interest rate, and amortization period.</p>
 
@@ -68,7 +94,7 @@
             <p class="eyebrow">Investment growth</p>
             <h2 id="investment-title">See how savings could grow</h2>
           </div>
-          <span class="badge">Second tool</span>
+          <span class="badge">Savings</span>
         </div>
         <p class="card-description">Project your investment balance and estimate the monthly savings needed to reach a target.</p>
 
@@ -117,7 +143,7 @@
             <p class="eyebrow">Debt payoff</p>
             <h2 id="debt-title">Estimate your payoff timeline</h2>
           </div>
-          <span class="badge">Third tool</span>
+          <span class="badge">Debt</span>
         </div>
         <p class="card-description">See how a fixed monthly payment could reduce a balance and how much interest it may cost.</p>
 
@@ -155,7 +181,7 @@
             <p class="eyebrow">Rent vs. buy</p>
             <h2 id="rent-buy-title">Compare two housing scenarios</h2>
           </div>
-          <span class="badge">Fourth tool</span>
+          <span class="badge">Housing</span>
         </div>
         <p class="card-description">Compare estimated monthly housing costs and the assets each scenario could leave you with over time.</p>
 
@@ -233,7 +259,7 @@
             <p class="eyebrow">RRSP vs. TFSA</p>
             <h2 id="rrsp-tfsa-title">Compare estimated after-tax values</h2>
           </div>
-          <span class="badge">Fifth tool</span>
+          <span class="badge">Investing</span>
         </div>
         <p class="card-description">Compare the estimated value of the same monthly take-home budget invested in either account.</p>
 
@@ -283,7 +309,7 @@
             <p class="eyebrow">Net worth</p>
             <h2 id="net-worth-title">Add up what you own and owe</h2>
           </div>
-          <span class="badge">Sixth tool</span>
+          <span class="badge">Snapshot</span>
         </div>
         <p class="card-description">Enter current estimated values. Net worth is your total assets minus your total debts.</p>
 
