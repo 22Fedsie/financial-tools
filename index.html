@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Practical financial calculators and tools." />
+    <title>Financial Tools</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Financial Tools home">Financial Tools</a>
+      <span class="header-note">Clear numbers. Better decisions.</span>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">Free financial calculators</p>
+        <h1 id="page-title">Make your next money decision with confidence.</h1>
+        <p>Simple, practical tools to help you understand the numbers.</p>
+      </section>
+
+      <section class="calculator-card" aria-labelledby="mortgage-title">
+        <div class="card-heading">
+          <div>
+            <p class="eyebrow">Mortgage calculator</p>
+            <h2 id="mortgage-title">Estimate your payment</h2>
+          </div>
+          <span class="badge">First tool</span>
+        </div>
+        <p class="card-description">Enter the mortgage amount, annual interest rate, and amortization period.</p>
+
+        <form id="mortgage-form">
+          <label>
+            Mortgage amount
+            <span class="input-wrap"><span aria-hidden="true">$</span><input id="principal" name="principal" type="number" min="1000" step="1000" value="400000" required /></span>
+          </label>
+          <label>
+            Annual interest rate
+            <span class="input-wrap"><input id="rate" name="rate" type="number" min="0" max="100" step="0.01" value="5" required /><span aria-hidden="true">%</span></span>
+          </label>
+          <label>
+            Amortization period
+            <span class="input-wrap"><input id="years" name="years" type="number" min="1" max="50" step="1" value="25" required /><span>years</span></span>
+          </label>
+          <button type="submit">Calculate payment</button>
+        </form>
+
+        <div id="result" class="result" aria-live="polite" hidden>
+          <span>Estimated monthly payment</span>
+          <strong id="payment">—</strong>
+          <small>Estimate only. Does not include property tax, insurance, or other costs.</small>
+        </div>
+      </section>
+    </main>
+
+    <footer><p>For learning and planning. Confirm important decisions with a qualified professional.</p></footer>
+  </body>
+</html>
