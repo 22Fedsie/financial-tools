@@ -146,3 +146,80 @@ debtForm.addEventListener("submit", (event) => {
 });
 
 debtForm.requestSubmit();
+
+const rentBuyForm = document.querySelector("#rent-buy-form");
+const rentBuyResult = document.querySelector("#rent-buy-result");
+const rentBuyAlert = document.querySelector("#rent-buy-alert");
+const mortgagePaymentFormat = (principal, annualRate, years) => {
+  if (principal <= 0) return 0;
+  const monthlyRate = annualRate === 0 ? 0 : (1 + annualRate / 2) ** (2 / 12) - 1;
+  const months = years * 12;
+  return monthlyRate === 0
+    ? principal / months
+    : principal * monthlyRate / (1 - (1 + monthlyRate) ** -months);
+};
+
+rentBuyForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const homePrice = Number(rentBuyForm.elements.homePrice.value);
+  const downPayment = Number(rentBuyForm.elements.downPayment.value);
+  const closingCosts = Number(rentBuyForm.elements.closingCosts.value);
+  const mortgageRate = Number(rentBuyForm.elements.mortgageRate.value) / 100;
+  const amortizationYears = Number(rentBuyForm.elements.amortizationYears.value);
+  const monthlyRent = Number(rentBuyForm.elements.monthlyRent.value);
+  const ownerCosts = Number(rentBuyForm.elements.ownerCosts.value);
+  const yearsInHome = Number(rentBuyForm.elements.yearsInHome.value);
+  const appreciationRate = Number(rentBuyForm.elements.homeAppreciation.value) / 100;
+  const rentIncrease = Number(rentBuyForm.elements.rentIncrease.value) / 100;
+  const alternativeReturn = Number(rentBuyForm.elements.alternativeReturn.value) / 100;
+  const sellingCostsRate = Number(rentBuyForm.elements.sellingCosts.value) / 100;
+
+  rentBuyResult.hidden = true;
+  rentBuyAlert.hidden = true;
+
+  if (downPayment > homePrice) {
+    rentBuyAlert.textContent = "The down payment cannot be higher than the home purchase price.";
+    rentBuyAlert.hidden = false;
+    return;
+  }
+
+  const mortgageAmount = homePrice - downPayment;
+  const mortgageMonthlyRate = mortgageRate === 0 ? 0 : (1 + mortgageRate / 2) ** (2 / 12) - 1;
+  const mortgagePayment = mortgagePaymentFormat(mortgageAmount, mortgageRate, amortizationYears);
+  const months = yearsInHome * 12;
+  const investmentMonthlyRate = (1 + alternativeReturn) ** (1 / 12) - 1;
+  let mortgageBalance = mortgageAmount;
+  let rentPortfolio = downPayment + closingCosts;
+  let ownerSavings = 0;
+
+  for (let month = 0; month < months; month += 1) {
+    const interest = mortgageBalance > 0 ? mortgageBalance * mortgageMonthlyRate : 0;
+    const amountDue = mortgageBalance + interest;
+    const actualMortgagePayment = mortgageBalance > 0 ? Math.min(mortgagePayment, amountDue) : 0;
+    mortgageBalance = Math.max(0, amountDue - actualMortgagePayment);
+
+    const rentThisMonth = monthlyRent * (1 + rentIncrease) ** Math.floor(month / 12);
+    const ownerHousingCost = actualMortgagePayment + ownerCosts;
+    rentPortfolio = rentPortfolio * (1 + investmentMonthlyRate) + Math.max(0, ownerHousingCost - rentThisMonth);
+    ownerSavings = ownerSavings * (1 + investmentMonthlyRate) + Math.max(0, rentThisMonth - ownerHousingCost);
+  }
+
+  const futureHomeValue = homePrice * (1 + appreciationRate) ** yearsInHome;
+  const ownerHomeEquity = futureHomeValue * (1 - sellingCostsRate) - mortgageBalance;
+  const ownerAssets = ownerHomeEquity + ownerSavings;
+  const difference = ownerAssets - rentPortfolio;
+  const ownerMonthlyTotal = mortgagePayment + ownerCosts;
+
+  document.querySelector("#owner-monthly-total").textContent = formatMoney(ownerMonthlyTotal);
+  document.querySelector("#renter-monthly-total").textContent = formatMoney(monthlyRent);
+  document.querySelector("#horizon-years").textContent = String(yearsInHome);
+  document.querySelector("#owner-assets").textContent = formatMoney(ownerAssets);
+  document.querySelector("#renter-assets").textContent = formatMoney(rentPortfolio);
+  document.querySelector("#rent-buy-comparison").textContent = difference >= 0
+    ? `In this estimate, owning ends ${formatMoney(difference)} ahead.`
+    : `In this estimate, renting ends ${formatMoney(Math.abs(difference))} ahead.`;
+  rentBuyResult.hidden = false;
+});
+
+rentBuyForm.requestSubmit();
