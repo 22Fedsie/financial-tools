@@ -17,6 +17,8 @@
         <a href="#investment">Investment growth</a>
         <a href="#debt">Debt payoff</a>
         <a href="#rent-buy">Rent vs. buy</a>
+        <a href="#rrsp-tfsa">RRSP vs. TFSA</a>
+        <a href="#net-worth">Net worth</a>
       </nav>
     </header>
 
@@ -222,6 +224,115 @@
           </div>
           <strong id="rent-buy-comparison">—</strong>
           <small>Illustration only. Assumes the monthly cost difference is invested by the less expensive scenario, rent changes annually, and the mortgage rate stays the same. Includes your closing costs and estimated selling costs. Owner costs stay fixed. Excludes taxes, mortgage insurance, repairs beyond your estimate, and other costs. Actual results can differ substantially.</small>
+        </div>
+      </section>
+
+      <section id="rrsp-tfsa" class="calculator-card" aria-labelledby="rrsp-tfsa-title">
+        <div class="card-heading">
+          <div>
+            <p class="eyebrow">RRSP vs. TFSA</p>
+            <h2 id="rrsp-tfsa-title">Compare estimated after-tax values</h2>
+          </div>
+          <span class="badge">Fifth tool</span>
+        </div>
+        <p class="card-description">Compare the estimated value of the same monthly take-home budget invested in either account.</p>
+
+        <form id="rrsp-tfsa-form">
+          <label>
+            Monthly take-home budget
+            <span class="input-wrap"><span aria-hidden="true">$</span><input id="registered-budget" name="monthlyBudget" type="number" min="0" step="25" value="500" required /></span>
+          </label>
+          <label>
+            Estimated annual return
+            <span class="input-wrap"><input id="registered-return" name="annualReturn" type="number" min="-99.9" max="100" step="0.1" value="6" required /><span aria-hidden="true">%</span></span>
+          </label>
+          <label>
+            Years invested
+            <span class="input-wrap"><input id="registered-years" name="years" type="number" min="1" max="60" step="1" value="20" required /><span>years</span></span>
+          </label>
+          <label>
+            Current marginal tax rate
+            <span class="input-wrap"><input id="current-tax-rate" name="currentTaxRate" type="number" min="0" max="70" step="0.1" value="30" required /><span aria-hidden="true">%</span></span>
+          </label>
+          <label>
+            Estimated tax rate when withdrawing
+            <span class="input-wrap"><input id="withdrawal-tax-rate" name="withdrawalTaxRate" type="number" min="0" max="70" step="0.1" value="25" required /><span aria-hidden="true">%</span></span>
+          </label>
+          <button type="submit">Compare account estimates</button>
+        </form>
+
+        <div id="rrsp-tfsa-result" class="result" aria-live="polite" hidden>
+          <span>Estimated value after taxes</span>
+          <div class="result-stats account-results">
+            <div><span>TFSA</span><b id="tfsa-value">—</b></div>
+            <div><span>RRSP after estimated withdrawal tax</span><b id="rrsp-after-tax-value">—</b></div>
+          </div>
+          <div class="result-stats">
+            <div><span>RRSP value before withdrawal tax</span><b id="rrsp-before-tax-value">—</b></div>
+            <div><span>Estimated RRSP monthly contribution</span><b id="rrsp-monthly-contribution">—</b></div>
+          </div>
+          <strong id="rrsp-tfsa-comparison">—</strong>
+          <small>Illustration only. Assumes the full value of the RRSP deduction is reinvested, the marginal tax rates remain as entered, and monthly contributions are made at month-end. Excludes fees, contribution limits and account-specific rules. Actual tax depends on your circumstances and province.</small>
+          <small>See the CRA pages about <a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/registered-retirement-savings-plan-rrsp.html" target="_blank" rel="noreferrer">RRSPs</a> and <a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/what.html" target="_blank" rel="noreferrer">TFSAs</a> for account rules.</small>
+        </div>
+      </section>
+
+      <section id="net-worth" class="calculator-card" aria-labelledby="net-worth-title">
+        <div class="card-heading">
+          <div>
+            <p class="eyebrow">Net worth</p>
+            <h2 id="net-worth-title">Add up what you own and owe</h2>
+          </div>
+          <span class="badge">Sixth tool</span>
+        </div>
+        <p class="card-description">Enter current estimated values. Net worth is your total assets minus your total debts.</p>
+
+        <form id="net-worth-form">
+          <h3 class="field-section-heading">Assets</h3>
+          <label>
+            Cash and savings
+            <span class="input-wrap"><span aria-hidden="true">$</span><input name="cash" type="number" min="0" step="0.01" value="15000" required /></span>
+          </label>
+          <label>
+            Investments and registered accounts
+            <span class="input-wrap"><span aria-hidden="true">$</span><input name="investments" type="number" min="0" step="0.01" value="45000" required /></span>
+          </label>
+          <label>
+            Home market value
+            <span class="input-wrap"><span aria-hidden="true">$</span><input name="home" type="number" min="0" step="1000" value="400000" required /></span>
+          </label>
+          <label>
+            Vehicles and other property
+            <span class="input-wrap"><span aria-hidden="true">$</span><input name="property" type="number" min="0" step="100" value="18000" required /></span>
+          </label>
+          <h3 class="field-section-heading">Debts</h3>
+          <label>
+            Mortgage balance
+            <span class="input-wrap"><span aria-hidden="true">$</span><input name="mortgage" type="number" min="0" step="100" value="320000" required /></span>
+          </label>
+          <label>
+            Credit card balances
+            <span class="input-wrap"><span aria-hidden="true">$</span><input name="creditCards" type="number" min="0" step="0.01" value="2500" required /></span>
+          </label>
+          <label>
+            Student, vehicle, and personal loans
+            <span class="input-wrap"><span aria-hidden="true">$</span><input name="loans" type="number" min="0" step="0.01" value="8000" required /></span>
+          </label>
+          <label>
+            Other debts
+            <span class="input-wrap"><span aria-hidden="true">$</span><input name="otherDebts" type="number" min="0" step="0.01" value="0" required /></span>
+          </label>
+          <button type="submit">Calculate net worth</button>
+        </form>
+
+        <div id="net-worth-result" class="result" aria-live="polite" hidden>
+          <span>Estimated net worth</span>
+          <strong id="net-worth-value">—</strong>
+          <div class="result-stats">
+            <div><span>Total assets</span><b id="net-worth-assets">—</b></div>
+            <div><span>Total debts</span><b id="net-worth-debts">—</b></div>
+          </div>
+          <small>Estimate based on the amounts you enter. Use current values and remember to include all assets and debts. <a href="https://www.canada.ca/en/financial-consumer-agency/services/financial-basics/financial-basics-videos/financial-basics-video-financial-planning.html" target="_blank" rel="noreferrer">Learn how the Financial Consumer Agency of Canada defines net worth.</a></small>
         </div>
       </section>
     </main>

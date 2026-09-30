@@ -223,3 +223,56 @@ rentBuyForm.addEventListener("submit", (event) => {
 });
 
 rentBuyForm.requestSubmit();
+
+const registeredForm = document.querySelector("#rrsp-tfsa-form");
+const registeredResult = document.querySelector("#rrsp-tfsa-result");
+
+registeredForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const monthlyBudget = Number(registeredForm.elements.monthlyBudget.value);
+  const annualReturn = Number(registeredForm.elements.annualReturn.value) / 100;
+  const months = Number(registeredForm.elements.years.value) * 12;
+  const currentTaxRate = Number(registeredForm.elements.currentTaxRate.value) / 100;
+  const withdrawalTaxRate = Number(registeredForm.elements.withdrawalTaxRate.value) / 100;
+  const monthlyRate = (1 + annualReturn) ** (1 / 12) - 1;
+  const contributionFactor = monthlyRate === 0
+    ? months
+    : ((1 + monthlyRate) ** months - 1) / monthlyRate;
+
+  const tfsaValue = monthlyBudget * contributionFactor;
+  const rrspMonthlyContribution = monthlyBudget / (1 - currentTaxRate);
+  const rrspBeforeTaxValue = rrspMonthlyContribution * contributionFactor;
+  const rrspAfterTaxValue = rrspBeforeTaxValue * (1 - withdrawalTaxRate);
+  const difference = rrspAfterTaxValue - tfsaValue;
+
+  document.querySelector("#tfsa-value").textContent = formatMoney(tfsaValue);
+  document.querySelector("#rrsp-after-tax-value").textContent = formatMoney(rrspAfterTaxValue);
+  document.querySelector("#rrsp-before-tax-value").textContent = formatMoney(rrspBeforeTaxValue);
+  document.querySelector("#rrsp-monthly-contribution").textContent = formatMoney(rrspMonthlyContribution);
+  document.querySelector("#rrsp-tfsa-comparison").textContent = difference >= 0
+    ? `Under these assumptions, the RRSP estimate is ${formatMoney(difference)} higher after tax.`
+    : `Under these assumptions, the TFSA estimate is ${formatMoney(Math.abs(difference))} higher after tax.`;
+  registeredResult.hidden = false;
+});
+
+registeredForm.requestSubmit();
+
+const netWorthForm = document.querySelector("#net-worth-form");
+const netWorthResult = document.querySelector("#net-worth-result");
+
+netWorthForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const assetFields = ["cash", "investments", "home", "property"];
+  const debtFields = ["mortgage", "creditCards", "loans", "otherDebts"];
+  const totalAssets = assetFields.reduce((sum, name) => sum + Number(netWorthForm.elements[name].value), 0);
+  const totalDebts = debtFields.reduce((sum, name) => sum + Number(netWorthForm.elements[name].value), 0);
+
+  document.querySelector("#net-worth-assets").textContent = formatMoney(totalAssets);
+  document.querySelector("#net-worth-debts").textContent = formatMoney(totalDebts);
+  document.querySelector("#net-worth-value").textContent = formatMoney(totalAssets - totalDebts);
+  netWorthResult.hidden = false;
+});
+
+netWorthForm.requestSubmit();
