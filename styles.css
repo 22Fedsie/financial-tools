@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
 
 :root {
   color-scheme: light;
@@ -146,3 +146,47 @@ footer p { margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
+
+
+/* Information pages and the Excel model preview */
+footer { max-width: 1160px; margin: 0 auto; padding: 23px 30px 36px; border-top: 1px solid var(--line); color: #71807a; font-size: .8rem; }
+footer p { margin: 0; }
+.footer-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: 17px; }
+.footer-top .brand { font-size: .9rem; }
+.footer-top .brand-mark { width: 29px; height: 29px; border-radius: 9px; font-size: .86rem; }
+.footer-top p { margin: 0; text-align: right; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 12px 24px; padding-top: 16px; border-top: 1px solid var(--line); }
+.footer-links a { color: #5f706a; font-size: .78rem; font-weight: 600; text-decoration: none; }
+.footer-links a:hover { color: var(--accent-dark); text-decoration: underline; }
+.content-main { width: min(900px, 100% - 48px); margin: 0 auto; padding: 50px 0 82px; }
+.content-page { padding: clamp(26px, 5vw, 52px); border: 1px solid var(--line); border-radius: 20px; background: #fff; box-shadow: var(--shadow); }
+.page-breadcrumb { margin: 0 0 25px; color: var(--muted); font-size: .8rem; }
+.page-breadcrumb a { color: var(--accent-dark); font-weight: 600; text-decoration: none; }
+.content-page .eyebrow { margin-bottom: 10px; }
+.content-page h1 { max-width: 740px; font-size: clamp(2.25rem, 5vw, 3.55rem); }
+.page-lede { max-width: 730px; margin: 17px 0 32px; color: #657571; font-size: 1.05rem; line-height: 1.75; }
+.content-section { margin-top: 30px; padding-top: 25px; border-top: 1px solid #edf0ec; }
+.content-section h2 { margin: 0 0 10px; font-size: 1.25rem; letter-spacing: -.025em; }
+.content-section p, .content-section li { color: #5f706a; font-size: .92rem; }
+.content-section p { margin: 8px 0; }
+.content-section a { text-underline-offset: 3px; }
+.page-note { margin: 22px 0 0; padding: 16px 18px; border: 1px solid #dce9e0; border-radius: 10px; color: #51635d; background: #f3f8f4; font-size: .85rem; }
+.page-note strong { color: var(--accent-dark); }
+.method-list { display: grid; gap: 12px; margin-top: 25px; }
+.method-item { padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: #fcfdfb; }
+.method-item h2 { margin: 0 0 7px; font-size: 1.1rem; }
+.method-item p { margin: 6px 0; color: #64736f; font-size: .87rem; }
+.method-item a { color: var(--accent-dark); font-weight: 700; font-size: .81rem; }
+.excel-preview { display: grid; grid-template-columns: .9fr 1.1fr; gap: 38px; margin-top: 35px; padding: 30px 32px; border: 1px solid #dce9e0; border-radius: 16px; background: linear-gradient(130deg, #eef6f0, #f9fbf8); }
+.excel-preview .eyebrow { margin-bottom: 8px; }
+.excel-preview h2 { font-size: 1.55rem; }
+.excel-preview-copy > p:not(.eyebrow) { margin: 11px 0 16px; color: var(--muted); font-size: .88rem; }
+.excel-list { display: grid; gap: 10px; }
+.excel-list > div { display: flex; align-items: center; gap: 12px; padding: 13px 14px; border: 1px solid #e0e9e1; border-radius: 10px; background: rgba(255,255,255,.84); }
+.excel-list-icon { display: grid; flex: 0 0 36px; width: 36px; height: 36px; place-items: center; border-radius: 10px; color: var(--accent); background: #e8f3ec; }
+.excel-list > div > span:nth-child(2) { display: grid; gap: 2px; }
+.excel-list b { color: var(--ink); font-size: .83rem; }
+.excel-list small { color: var(--muted); font-size: .7rem; line-height: 1.45; }
+.excel-list em { margin-left: auto; padding: 4px 8px; border-radius: 99px; color: #63766c; background: #eef2ed; font-size: .63rem; font-style: normal; font-weight: 700; }
+.excel-list > p { margin: 0; color: #75827c; font-size: .72rem; }
+@media (max-width: 760px) { .excel-preview { grid-template-columns: 1fr; gap: 19px; padding: 24px; } .content-main { width: min(100% - 34px, 620px); padding-top: 27px; } .content-page { padding: 28px 23px; } .footer-top { align-items: start; flex-direction: column; gap: 11px; } .footer-top p { text-align: left; } }
