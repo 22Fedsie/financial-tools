@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Analyze a multi-stock portfolio using your own historical adjusted closing prices. Compare returns, volatility, drawdown, allocation, and contribution." />
+  <meta name="theme-color" content="#f7f8f5" />
+  <title>Multi-Stock Portfolio Analyzer | Financial Tools</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="canonical" href="https://financial-tools-c5l.pages.dev/portfolio-analyzer" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Financial Tools home"><span class="brand-mark" aria-hidden="true">F</span><span>Financial <b>Tools</b></span></a>
+    <nav class="site-nav" aria-label="Site navigation"><a href="index.html#calculator-guide">Calculators</a><a href="portfolio-returns.html">Portfolio returns</a><a href="markets-and-derivatives.html">Markets guide</a><a href="methodology.html">How it works</a></nav>
+  </header>
+  <main id="main-content" class="content-main">
+    <article class="content-page">
+      <p class="page-breadcrumb"><a href="./">Home</a> / Portfolio analyzer</p>
+      <p class="eyebrow">Investment analysis</p>
+      <h1>See how your holdings performed together.</h1>
+      <p class="page-lede">Bring historical prices for several investments into one view. Compare portfolio return, annualized return, volatility, drawdown, allocation, and each holding's contribution.</p>
+
+      <section class="calculator-card valuation-model" aria-labelledby="analyzer-title">
+        <div class="card-heading"><div><p class="eyebrow">Multi-holding model</p><h2 id="analyzer-title">Import price history</h2></div><span class="badge">Your file stays in this browser</span></div>
+        <p class="card-description">Paste or select a CSV with one row per date and one adjusted closing price column per ticker. The number of shares for each holding is entered after the prices are read.</p>
+        <label>Select a CSV file<input id="analyzer-file" type="file" accept=".csv,text/csv" /></label>
+        <p class="model-footnote">All ticker prices must use the same currency. Convert prices before importing if your securities trade in different currencies.</p>
+        <label class="analyzer-data-label" for="analyzer-csv">Price history CSV</label>
+        <textarea id="analyzer-csv" class="analyzer-csv" rows="8" spellcheck="false" placeholder="Date, AAPL, MSFT, RY.TO&#10;2025-01-02, 243.85, 418.58, 172.40&#10;2025-01-03, 243.36, 423.35, 173.10"></textarea>
+        <div class="analyzer-actions"><button id="analyzer-load-sample" type="button" class="button-secondary">Load sample data</button><a class="analyzer-template" href="portfolio-prices-example.csv" download>Download sample CSV</a><button id="analyzer-read-data" type="button">Read prices and set share quantities</button></div>
+        <p id="analyzer-error" class="model-error" role="alert" hidden></p>
+        <section id="analyzer-quantities-section" class="analyzer-subsection" aria-labelledby="analyzer-quantities-title" hidden>
+          <h3 id="analyzer-quantities-title">Set the share quantities</h3>
+          <p class="model-footnote">Quantities are held constant from the first date to the last. This models a buy-and-hold portfolio without deposits, withdrawals, trades, taxes, or fees.</p>
+          <div class="responsive-model-table"><table class="model-table analyzer-table"><caption>Holdings included in the analysis</caption><thead><tr><th scope="col">Ticker</th><th scope="col">First adjusted price</th><th scope="col">Shares held</th></tr></thead><tbody id="analyzer-quantity-rows"></tbody></table></div>
+          <button id="analyzer-calculate" type="button">Analyze this portfolio</button>
+        </section>
+        <section id="analyzer-results" class="analyzer-subsection" aria-labelledby="analyzer-results-title" hidden aria-live="polite">
+          <div class="card-heading"><div><p class="eyebrow">Historical results</p><h3 id="analyzer-results-title">Portfolio performance</h3></div><span id="analyzer-date-range" class="badge"></span></div>
+          <div class="model-output-grid analyzer-metrics">
+            <div class="model-output-highlight"><span>Total portfolio return</span><strong id="analyzer-total-return">…</strong></div>
+            <div><span>Annualized return</span><strong id="analyzer-cagr">…</strong></div>
+            <div><span>Annualized volatility</span><strong id="analyzer-volatility">…</strong></div>
+            <div><span>Maximum drawdown</span><strong id="analyzer-drawdown">…</strong></div>
+          </div>
+          <div class="analyzer-chart-wrap"><h4>Growth of 100 invested</h4><svg id="analyzer-chart" class="analyzer-chart" viewBox="0 0 760 260" role="img" aria-labelledby="analyzer-chart-title analyzer-chart-description"><title id="analyzer-chart-title">Normalized portfolio and holding performance</title><desc id="analyzer-chart-description">Historical indexed portfolio value and individual holding prices.</desc></svg><div id="analyzer-legend" class="analyzer-legend" aria-label="Chart series"></div><p class="model-footnote">Each line starts at 100 so the relative price performance can be compared across holdings. The main portfolio results use your share quantities.</p></div>
+          <div class="responsive-model-table"><table class="model-table analyzer-table"><caption>Holding return and portfolio contribution</caption><thead><tr><th scope="col">Holding</th><th scope="col">Shares</th><th scope="col">Beginning allocation</th><th scope="col">Ending allocation</th><th scope="col">Holding return</th><th scope="col">Contribution to portfolio return</th></tr></thead><tbody id="analyzer-results-rows"></tbody></table></div>
+          <p id="analyzer-method-note" class="model-footnote"></p>
+        </section>
+      </section>
+
+      <section class="content-section">
+        <h2>Prepare your price file</h2>
+        <p>The first column must be named <code>Date</code> and contain dates in YYYY-MM-DD format. Each other column is a ticker symbol, with one adjusted closing price per date. Each ticker must have a price for every date in the file. Include at least two dates and one ticker. Include every trading session in the period for the volatility estimate to be useful. You can use the sample data above to see the format.</p>
+        <p>Use adjusted close where available. Adjusted prices account for historical stock splits and distributions in the price series. If your data source provides only closing prices, dividends may be excluded from the results. This page does not download or verify market data.</p>
+      </section>
+      <section class="content-section">
+        <h2>How to interpret the measures</h2>
+        <ul>
+          <li><strong>Total return</strong> compares beginning and ending portfolio value for fixed share quantities.</li>
+          <li><strong>Annualized return</strong> converts the full-period compound change into a yearly rate based on elapsed calendar days.</li>
+          <li><strong>Annualized volatility</strong> scales the standard deviation of daily portfolio returns by the square root of 252 trading days. It is a historical measure of variability, not a forecast.</li>
+          <li><strong>Maximum drawdown</strong> is the largest observed decline from a previous portfolio value peak during the supplied period.</li>
+          <li><strong>Contribution</strong> shows how each holding's return and starting portfolio weight combine to produce total portfolio return.</li>
+        </ul>
+        <p>The analysis assumes the prices share the same currency, dates, and valuation basis. The fixed share quantities assume no rebalancing or transactions between the first and last dates. The model reports percentage returns and portfolio weights. It does not report account dollar values because adjusted historical prices may be restated for distributions and splits. Results exclude taxes and fees. This is an educational tool, not personalized investment advice.</p>
+      </section>
+      <div class="page-note"><strong>Privacy note.</strong> Your selected file and pasted data are processed by this page in your browser. The website does not upload the price data or store it on a server.</div>
+      <div class="valuation-links"><a href="portfolio-returns.html">Compare other return methods</a><a href="methodology.html">Read calculator methodology</a></div>
+    </article>
+  </main>
+  <footer><div class="footer-top"><a class="brand" href="./" aria-label="Financial Tools home"><span class="brand-mark" aria-hidden="true">F</span><span>Financial <b>Tools</b></span></a><p>For learning and planning. Confirm important decisions with a qualified professional.</p></div><nav class="footer-links" aria-label="More information"><a href="about.html">About</a><a href="methodology.html">Calculator methodology</a><a href="money-basics.html">Money basics</a><a href="privacy.html">Privacy</a><a href="index.html#excel-models">Interactive models</a></nav></footer>
+  <script src="portfolio-analyzer.js" defer></script>
+</body>
+</html>

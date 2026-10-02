@@ -9,6 +9,7 @@ The home page includes mortgage, investment growth and savings goal, debt payoff
 Interactive models are available on separate pages:
 
 - `portfolio-returns.html`: holding-period, annualized, money-weighted, and time-weighted returns, plus a benchmark comparison.
+- `portfolio-analyzer.html`: browser-only multi-holding return analysis using a user-supplied CSV of adjusted closing prices.
 - `capm-wacc.html`: CAPM cost of equity and weighted average cost of capital.
 - `dcf-valuation-basics.html`: a driver-based five-year FCFF forecast, enterprise valuation, and WACC and growth sensitivity.
 - `relative-valuation-model.html`: peer-based P/E, EV/EBITDA, and P/S valuation ranges.
