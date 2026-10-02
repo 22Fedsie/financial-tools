@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Learn about equity orders, market circuit breakers, long and short positions, exchange rates, futures clearing, interest rate parity, and options." />
+  <meta name="theme-color" content="#f7f8f5" />
+  <title>Markets and Derivatives | Financial Tools</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="options-payoff.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Financial Tools home"><span class="brand-mark" aria-hidden="true">F</span><span>Financial <b>Tools</b></span></a>
+    <nav class="site-nav" aria-label="Site navigation"><a href="index.html#calculator-guide">Calculators</a><a href="money-basics.html">Money basics</a><a href="black-scholes-model.html">Black-Scholes</a><a href="methodology.html">How it works</a><a href="about.html">About</a></nav>
+  </header>
+  <main id="main-content" class="content-main">
+    <article class="content-page">
+      <p class="page-breadcrumb"><a href="./">Home</a> / Markets and derivatives</p>
+      <p class="eyebrow">Financial literacy</p>
+      <h1>How markets and derivatives work.</h1>
+      <p class="page-lede">A plain-language guide to common market mechanics, foreign exchange, futures, and options, with an interactive chart of option profit or loss at expiration.</p>
+
+      <div class="method-list">
+        <section class="method-item" id="equity-orders">
+          <h2>Market orders and limit orders</h2>
+          <p>A <b>market order</b> asks a broker to buy or sell promptly at the best available price. The order may execute quickly, but the final price is not guaranteed, especially in a fast or thin market.</p>
+          <p>A <b>limit order</b> sets the highest price you will pay to buy, or the lowest price you will accept to sell. It controls the acceptable price, but the trade may not happen if the market does not reach it. A limit order can also be partially filled.</p>
+          <p>Order handling and available order types depend on the broker and venue. Read <a href="https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins-14" target="_blank" rel="noreferrer">Investor.gov's overview of order types</a>.</p>
+        </section>
+
+        <section class="method-item" id="circuit-breakers">
+          <h2>Circuit breakers and volatility</h2>
+          <p>Circuit breakers pause or restrict trading after sharp price moves. They are intended to give markets time to absorb information and restore orderly trading. A pause does not reverse a price decline or guarantee that trading will resume at a particular price.</p>
+          <p><b>U.S. example:</b> market-wide equity halts use declines in the S&amp;P 500 of 7%, 13%, and 20% from the prior close. Before 3:25 p.m. Eastern, Level 1 and Level 2 generally pause trading for 15 minutes; Level 3 closes the market for the rest of the day. These are U.S. rules; markets in Canada and other countries have their own mechanisms. See the <a href="https://www.sec.gov/investor/alerts/circuitbreakersbulletin.htm" target="_blank" rel="noreferrer">SEC investor bulletin</a>.</p>
+        </section>
+
+        <section class="method-item" id="long-short">
+          <h2>Net long and net short</h2>
+          <p>A <b>long position</b> generally benefits if the asset's price rises. A <b>short position</b> generally benefits if it falls. In stocks, short selling usually involves borrowing shares, selling them, and later buying shares to return to the lender.</p>
+          <p><b>Net</b> describes the combined exposure after related positions are considered. Someone can own shares and also have short exposure through options or another related instrument. “Net long” or “net short” is a summary of exposure, not a guarantee of how the whole portfolio will behave. Short selling can create losses if the price rises and has borrowing, margin, and other costs. See <a href="https://www.investor.gov/introduction-investing/investing-basics/how-stock-markets-work/stock-purchases-and-sales-long-and" target="_blank" rel="noreferrer">Investor.gov's long and short overview</a>.</p>
+        </section>
+
+        <section class="method-item" id="exchange-rates">
+          <h2>Exchange-rate movements</h2>
+          <p>An exchange rate is a price between two currencies, so always check which currency is being quoted. The Bank of Canada commonly reports how many Canadian dollars buy one unit of a foreign currency. If that quote for one U.S. dollar rises from C$1.35 to C$1.40, the U.S. dollar has strengthened against the Canadian dollar in that quote convention.</p>
+          <p>Currency values move as demand and supply respond to many factors. For Canada, interest-rate differences, commodity prices, global risk appetite, and economic news can matter. A rate change can affect import costs, travel budgets, and the Canadian-dollar value of foreign investments. The <a href="https://www.bankofcanada.ca/rates/exchange/background-information-on-foreign-exchange-rates/" target="_blank" rel="noreferrer">Bank of Canada explains its quote convention</a> and discusses <a href="https://www.bankofcanada.ca/2019/06/flexible-exchange-rates-commodity-prices-and-price-stability/" target="_blank" rel="noreferrer">how commodity prices and interest-rate differences relate to exchange-rate movements</a>.</p>
+        </section>
+
+        <section class="method-item" id="futures-clearing">
+          <h2>What a futures clearinghouse does</h2>
+          <p>For centrally cleared futures, a clearinghouse steps between buyers and sellers as the central counterparty. It manages collateral requirements, collects margin, and processes daily gains and losses as contracts are marked to market. This structure helps manage the risk that one side will fail to meet its obligations; it does not remove all market or system risk.</p>
+          <p>Learn more from <a href="https://www.cmegroup.com/education/courses/clearing/what-is-clearing" target="_blank" rel="noreferrer">CME Group's clearing overview</a>.</p>
+        </section>
+
+        <section class="method-item" id="interest-rate-parity">
+          <h2>Interest rate parity</h2>
+          <p>Covered interest rate parity is a no-arbitrage relationship linking spot exchange rates, forward exchange rates, and interest rates in two currencies. In a simplified setting, if the spot and forward quotes are both Canadian dollars per unit of foreign currency, then:</p>
+          <div class="account-callout"><strong>Forward rate = spot rate × (1 + Canadian interest rate)<sup>time</sup> ÷ (1 + foreign interest rate)<sup>time</sup></strong><span>For this form, rates are effective annual rates and time is measured in years. Real markets can include transaction costs, funding differences, and cross-currency basis, so observed prices may differ from the simplified relationship.</span></div>
+          <p>The forward rate is not a promise or forecast of the future spot rate. The relationship explains how interest-rate differences are reflected in a covered currency exchange. Background: <a href="https://www.bostonfed.org/publications/current-policy-perspectives/2017/uncovering-covered-interest-parity-deviations-the-role-of-bank-regulation-and-monetary-policy.aspx" target="_blank" rel="noreferrer">Federal Reserve Bank of Boston on covered interest parity</a>.</p>
+        </section>
+
+        <section class="method-item" id="options-forwards-futures">
+          <h2>Options compared with forwards and futures</h2>
+          <div class="payoff-table-wrap"><table class="payoff-table"><thead><tr><th scope="col">Contract</th><th scope="col">What it generally means</th><th scope="col">Typical structure</th></tr></thead><tbody>
+            <tr><th scope="row">Option</th><td>Buyer has a right, not an obligation, to buy (call) or sell (put) at the strike, subject to contract terms.</td><td>Buyer pays a premium; seller takes on an obligation if exercised or assigned.</td></tr>
+            <tr><th scope="row">Forward</th><td>Agreement to exchange an asset at a set price on a future date.</td><td>Usually privately negotiated and customizable; counterparty and collateral terms vary.</td></tr>
+            <tr><th scope="row">Future</th><td>Exchange-traded agreement with a set contract size and delivery or cash-settlement terms.</td><td>Usually centrally cleared, with margin and daily settlement.</td></tr>
+          </tbody></table></div>
+          <p>Forwards and futures generally bind both sides, while the option buyer can choose whether to exercise. Contract terms vary by market and product. Read <a href="https://www.cmegroup.com/education/courses/introduction-to-futures/futures-contracts-compared-to-forwards" target="_blank" rel="noreferrer">CME Group's comparison of futures and forwards</a> and the <a href="https://www.optionseducation.org/optionsoverview/options-basics" target="_blank" rel="noreferrer">Options Industry Council's options basics</a>.</p>
+        </section>
+
+        <section class="method-item" id="option-value-factors">
+          <h2>What affects an option's theoretical value?</h2>
+          <p>Introductory descriptions often name five core factors: underlying price, strike price, time to expiration, volatility, and interest rate. The version of Black-Scholes used on this site also includes continuous dividend yield, making six model inputs.</p>
+          <ul class="source-list">
+            <li><b>Underlying price:</b> a higher price generally helps a call and hurts a put.</li>
+            <li><b>Strike price:</b> a higher strike generally hurts a call and helps a put.</li>
+            <li><b>Time:</b> more time generally adds time value to plain options, though dividends and early exercise can complicate the comparison.</li>
+            <li><b>Volatility:</b> higher expected volatility generally raises the value of both calls and puts because it increases the range of possible outcomes.</li>
+            <li><b>Interest rate:</b> higher rates generally support call values and reduce put values, all else equal.</li>
+            <li><b>Dividend yield:</b> higher expected dividends generally reduce call values and support put values, all else equal.</li>
+          </ul>
+          <p>These are model sensitivities holding other inputs constant, not price predictions. See the <a href="https://www.optionseducation.org/referencelibrary/faq/option-price-behavior" target="_blank" rel="noreferrer">Options Industry Council's option price behavior guide</a> and try the site's <a href="black-scholes-model.html">Black-Scholes model</a>.</p>
+        </section>
+
+        <section class="method-item" id="options-payoff">
+          <h2>Explore an option payoff at expiration</h2>
+          <p>Choose a basic long or short call or put. The chart shows profit or loss at expiration after subtracting or adding the premium. It does not show how the option's market value may change before expiration.</p>
+          <form class="payoff-form" id="payoff-form">
+            <label>Position<select id="payoff-position"><option value="long-call">Long call</option><option value="short-call">Short call</option><option value="long-put">Long put</option><option value="short-put">Short put</option></select></label>
+            <label>Strike price<input id="payoff-strike" type="number" min="0.01" step="0.01" value="100" required /></label>
+            <label>Premium per unit<input id="payoff-premium" type="number" min="0" step="0.01" value="8" required /></label>
+            <label>Contract multiplier (units)<input id="payoff-multiplier" type="number" min="1" step="1" value="100" required /></label>
+            <label>Lowest underlying price<input id="payoff-low" type="number" min="0" step="0.01" value="60" required /></label>
+            <label>Highest underlying price<input id="payoff-high" type="number" min="0.01" step="0.01" value="140" required /></label>
+          </form>
+          <p id="payoff-error" class="form-alert" role="alert" hidden></p>
+          <div class="payoff-summary" aria-live="polite"><div><span>Break-even price</span><strong id="payoff-breakeven">…</strong></div><div><span>Maximum gain</span><strong id="payoff-max-gain">…</strong></div><div><span>Maximum loss</span><strong id="payoff-max-loss">…</strong></div></div>
+          <svg id="payoff-chart" class="payoff-chart" viewBox="0 0 680 320" role="img" aria-labelledby="payoff-chart-title payoff-chart-desc"><title id="payoff-chart-title">Option profit and loss at expiration</title><desc id="payoff-chart-desc">Illustrative option profit and loss chart.</desc></svg>
+          <div class="payoff-table-wrap"><table class="payoff-table"><caption id="payoff-caption">Profit or loss at selected underlying prices</caption><thead><tr><th scope="col">Underlying at expiration</th><th scope="col">Profit or loss per contract</th></tr></thead><tbody id="payoff-rows"></tbody></table></div>
+          <p>The chart is a simplified illustration before commissions, taxes, financing, margin costs, exercise or assignment complications. The multiplier is user-adjustable because contract sizes vary; 100 units is only a common example for listed U.S. equity options. Short options can involve substantial risk. More on <a href="https://www.optionseducation.org/strategies/all-strategies/long-call" target="_blank" rel="noreferrer">long-call payoff and risk</a>.</p>
+        </section>
+      </div>
+      <div class="page-note"><strong>For learning only.</strong> These examples are simplified and are not trading recommendations. Derivatives can create losses, leverage, margin calls, and contract-specific obligations. Check the product terms and your broker's disclosures.</div>
+    </article>
+  </main>
+  <footer><div class="footer-top"><a class="brand" href="./" aria-label="Financial Tools home"><span class="brand-mark" aria-hidden="true">F</span><span>Financial <b>Tools</b></span></a><p>For learning and planning. Confirm important decisions with a qualified professional.</p></div><nav class="footer-links" aria-label="More information"><a href="about.html">About</a><a href="methodology.html">Calculator methodology</a><a href="money-basics.html">Money basics</a><a href="privacy.html">Privacy</a><a href="feedback.html">Feedback</a><a href="index.html#excel-models">Finance models</a></nav></footer>
+</body>
+</html>

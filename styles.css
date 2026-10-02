@@ -178,6 +178,26 @@ footer p { margin: 0; }
 .method-item h2 { margin: 0 0 7px; font-size: 1.1rem; }
 .method-item p { margin: 6px 0; color: #64736f; font-size: .87rem; }
 .method-item a { color: var(--accent-dark); font-weight: 700; font-size: .81rem; }
+.payoff-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 18px 0; }
+.payoff-form label { display: grid; gap: 7px; color: #43534e; font-size: .83rem; font-weight: 650; }
+.payoff-form input, .payoff-form select { width: 100%; min-height: 45px; padding: 0 12px; border: 1px solid #dce4de; border-radius: 8px; color: #20342e; background: #fff; font: inherit; }
+.payoff-form input:focus, .payoff-form select:focus { outline: 3px solid #18766320; border-color: #66a58d; }
+.payoff-chart { width: 100%; height: auto; min-height: 250px; overflow: visible; }
+.payoff-chart text { fill: #64736f; font: 12px system-ui, sans-serif; }
+.payoff-chart .gridline { stroke: #e7ece8; stroke-width: 1; }
+.payoff-chart .zero-line { stroke: #7c8b84; stroke-width: 1.4; }
+.payoff-chart .payoff-line { fill: none; stroke: #16745f; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.payoff-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0; }
+.payoff-summary > div { padding: 13px; border-radius: 9px; background: #f2f6f2; }
+.payoff-summary span, .payoff-summary strong { display: block; }
+.payoff-summary span { margin-bottom: 4px; color: #64736f; font-size: .73rem; }
+.payoff-summary strong { color: #24473d; font-size: .95rem; }
+.payoff-table-wrap { overflow-x: auto; }
+.payoff-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+.payoff-table th, .payoff-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+.payoff-table th:first-child, .payoff-table td:first-child { text-align: left; }
+.source-list { margin: 10px 0 0; padding-left: 20px; color: #64736f; font-size: .83rem; }
+.source-list li { margin: 7px 0; }
 .valuation-model { margin-top: 28px; }
 .valuation-model .model-subheading { margin: 25px 0 10px; color: var(--accent-dark); font-size: .96rem; }
 .model-input-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; }
@@ -249,4 +269,4 @@ footer p { margin: 0; }
 .excel-feedback-link:hover { color: var(--accent); text-decoration: underline; }
 .excel-list > .excel-scope-note { margin: 0; padding: 1px 2px 5px; color: #65736d; font-size: .72rem; line-height: 1.5; }
 @media (max-width: 760px) { .excel-preview { grid-template-columns: 1fr; gap: 19px; padding: 24px; } .content-main { width: min(100% - 34px, 620px); padding-top: 27px; } .content-page { padding: 28px 23px; } .footer-top { align-items: start; flex-direction: column; gap: 11px; } .footer-top p { text-align: left; } }
-@media (max-width: 560px) { .instrument-grid { grid-template-columns: 1fr; gap: 8px; } .instrument-card { padding: 13px 14px; } }
+@media (max-width: 560px) { .instrument-grid { grid-template-columns: 1fr; gap: 8px; } .instrument-card { padding: 13px 14px; } .payoff-form { grid-template-columns: 1fr; gap: 11px; } .payoff-summary { grid-template-columns: 1fr; gap: 7px; } .payoff-summary > div { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 11px; } .payoff-summary span { margin: 0; } .payoff-chart text { font-size: 10px; } }
