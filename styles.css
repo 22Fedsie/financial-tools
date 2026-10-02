@@ -173,7 +173,7 @@ footer p { margin: 0; }
 .footer-links a { color: #5f706a; font-size: .78rem; font-weight: 600; text-decoration: none; }
 .footer-links a:hover { color: var(--accent-dark); text-decoration: underline; }
 .content-main { width: min(900px, 100% - 48px); margin: 0 auto; padding: 50px 0 82px; }
-.content-page { padding: clamp(26px, 5vw, 52px); border: 1px solid var(--line); border-radius: 20px; background: #fff; box-shadow: var(--shadow); }
+.content-page { min-width: 0; padding: clamp(26px, 5vw, 52px); border: 1px solid var(--line); border-radius: 20px; background: #fff; box-shadow: var(--shadow); }
 .page-breadcrumb { margin: 0 0 25px; color: var(--muted); font-size: .8rem; }
 .page-breadcrumb a { color: var(--accent-dark); font-weight: 600; text-decoration: none; }
 .content-page .eyebrow { margin-bottom: 10px; }
@@ -186,8 +186,8 @@ footer p { margin: 0; }
 .content-section a { text-underline-offset: 3px; }
 .page-note { margin: 22px 0 0; padding: 16px 18px; border: 1px solid #dce9e0; border-radius: 10px; color: #51635d; background: #f3f8f4; font-size: .85rem; }
 .page-note strong { color: var(--accent-dark); }
-.method-list { display: grid; gap: 12px; margin-top: 25px; }
-.method-item { padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: #fcfdfb; }
+.method-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin-top: 25px; }
+.method-item { min-width: 0; padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: #fcfdfb; }
 .method-item h2 { margin: 0 0 7px; font-size: 1.1rem; }
 .method-item p { margin: 6px 0; color: #64736f; font-size: .87rem; }
 .method-item a { color: var(--accent-dark); font-weight: 700; font-size: .81rem; }
@@ -195,7 +195,7 @@ footer p { margin: 0; }
 .payoff-form label { display: grid; gap: 7px; color: #43534e; font-size: .83rem; font-weight: 650; }
 .payoff-form input, .payoff-form select { width: 100%; min-height: 45px; padding: 0 12px; border: 1px solid #dce4de; border-radius: 8px; color: #20342e; background: #fff; font: inherit; }
 .payoff-form input:focus, .payoff-form select:focus { outline: 3px solid #18766320; border-color: #66a58d; }
-.payoff-chart { width: 100%; height: auto; min-height: 250px; overflow: visible; }
+.payoff-chart { display: block; max-width: 100%; width: 100%; height: auto; min-height: 250px; overflow: hidden; }
 .payoff-chart text { fill: #64736f; font: 12px system-ui, sans-serif; }
 .payoff-chart .gridline { stroke: #e7ece8; stroke-width: 1; }
 .payoff-chart .zero-line { stroke: #7c8b84; stroke-width: 1.4; }
