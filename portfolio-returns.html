@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Compare holding period, annualized, money-weighted, and time-weighted portfolio returns with editable assumptions." />
+  <meta name="theme-color" content="#f7f8f5" />
+  <title>Portfolio Returns and Performance Calculator | Financial Tools</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Financial Tools home"><span class="brand-mark" aria-hidden="true">F</span><span>Financial <b>Tools</b></span></a>
+    <nav class="site-nav" aria-label="Site navigation"><a href="index.html#calculator-guide">Calculators</a><a href="dcf-valuation-basics.html">DCF model</a><a href="capm-wacc.html">CAPM and WACC</a><a href="methodology.html">How it works</a></nav>
+  </header>
+  <main id="main-content" class="content-main">
+    <article class="content-page">
+      <p class="page-breadcrumb"><a href="./">Home</a> / Portfolio returns</p>
+      <p class="eyebrow">Investment analysis</p>
+      <h1>Measure portfolio returns from different angles.</h1>
+      <p class="page-lede">Compare holding-period return, annualized return, money-weighted return, and time-weighted return. Each method answers a different question.</p>
+
+      <section class="calculator-card valuation-model" aria-labelledby="portfolio-title">
+        <div class="card-heading"><div><p class="eyebrow">Interactive model</p><h2 id="portfolio-title">Return assumptions</h2></div><span class="badge">Values stay in this browser</span></div>
+        <p class="card-description">Enter values in one consistent currency. The example figures are fictional and are not connected to market data.</p>
+        <div class="model-input-grid">
+          <label>Currency<select id="portfolio-currency"><option value="CAD">CAD</option><option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></label>
+          <label>Beginning portfolio value<input id="portfolio-begin" type="number" min="0.01" step="0.01" value="10000" /></label>
+          <label>Ending portfolio value<input id="portfolio-end" type="number" min="0" step="0.01" value="11200" /></label>
+          <label>Income received during period<input id="portfolio-income" type="number" step="0.01" value="0" /><small>Include dividends or interest not already reflected in the ending value.</small></label>
+          <label>Beginning date<input id="portfolio-start-date" type="date" value="2025-10-02" /></label>
+          <label>Ending date<input id="portfolio-end-date" type="date" value="2026-10-02" /></label>
+          <label>Equal periods per year<input id="portfolio-periods-per-year" type="number" min="1" max="365" step="1" value="4" /><small>Use 4 for quarterly periods, 12 for monthly periods, or 1 for yearly periods.</small></label>
+        </div>
+        <button id="portfolio-calculate" type="button">Calculate portfolio returns</button>
+        <p id="portfolio-error" class="model-error" role="alert" hidden></p>
+        <div id="portfolio-results" class="model-results" aria-live="polite">
+          <h3>Illustrative return measures</h3>
+          <div class="model-output-grid">
+            <div><span>Holding period total return</span><strong id="portfolio-hpr">…</strong></div>
+            <div><span>Annualized holding period return</span><strong id="portfolio-annualized">…</strong></div>
+            <div><span>Dollar gain, including income</span><strong id="portfolio-gain">…</strong></div>
+            <div><span>Money-weighted return (XIRR)</span><strong id="portfolio-xirr">…</strong></div>
+            <div><span>Time-weighted return</span><strong id="portfolio-twr">…</strong></div>
+            <div><span>Annualized time-weighted return</span><strong id="portfolio-twr-annualized">…</strong></div>
+          </div>
+          <p class="model-footnote">HPR assumes no external contributions or withdrawals during the period. Use the dated cash flows for money-weighted return and the periodic values below for time-weighted return.</p>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <h2>Money-weighted return with dated cash flows</h2>
+        <p>Enter contributions as negative amounts from the investor's perspective. Enter withdrawals and distributions as positive amounts. Beginning value and ending value are included automatically. Leave unused rows blank.</p>
+        <div class="responsive-model-table"><table class="model-table portfolio-table"><caption>Interim investor cash flows</caption><thead><tr><th scope="col">Cash flow</th><th scope="col">Date</th><th scope="col">Amount</th></tr></thead><tbody id="portfolio-cashflows"></tbody></table></div>
+        <p class="model-footnote">XIRR is an annualized money-weighted return, so larger or earlier cash flows have greater influence. If cash flows change sign several times, more than one mathematical result can exist; this calculator reports one estimated solution.</p>
+      </section>
+
+      <section class="content-section">
+        <h2>Time-weighted return by period</h2>
+        <p>Enter portfolio value at each period start and end. Record external contributions as positive amounts and withdrawals as negative amounts in the period-end flow column. The calculation assumes those external flows happen at period end.</p>
+        <div class="responsive-model-table"><table class="model-table portfolio-table"><caption>Four sequential periods</caption><thead><tr><th scope="col">Period</th><th scope="col">Beginning value</th><th scope="col">Ending value</th><th scope="col">End-period external flow</th></tr></thead><tbody id="portfolio-periods"></tbody></table></div>
+        <p class="model-footnote">The linked time-weighted return removes the effect of external cash flow timing. Annualization uses the periods-per-year assumption above and assumes the periods are equally spaced.</p>
+      </section>
+
+      <section class="content-section">
+        <h2>Optional benchmark comparison</h2>
+        <p>Compare total holding-period return using benchmark values over the same dates. A benchmark comparison is meaningful only when it represents a relevant investment alternative and includes income on the same basis.</p>
+        <div class="model-input-grid portfolio-benchmark-grid">
+          <label>Benchmark beginning value<input id="benchmark-begin" type="number" min="0.01" step="0.01" value="100" /></label>
+          <label>Benchmark ending value<input id="benchmark-end" type="number" min="0" step="0.01" value="108" /></label>
+          <label>Benchmark income received<input id="benchmark-income" type="number" step="0.01" value="1" /></label>
+        </div>
+        <p id="benchmark-result" class="benchmark-result" aria-live="polite">Benchmark total return: …</p>
+      </section>
+
+      <section class="content-section">
+        <h2>Which return should I use?</h2>
+        <ul>
+          <li><strong>HPR</strong> summarizes the total gain or loss over one holding period, including cash income.</li>
+          <li><strong>Annualized HPR</strong> expresses that result as a compound yearly rate when comparing periods of different lengths.</li>
+          <li><strong>Money-weighted return</strong> reflects the timing and size of the investor's actual cash flows.</li>
+          <li><strong>Time-weighted return</strong> links subperiod returns to reduce the impact of deposits and withdrawals, which is useful when assessing portfolio management.</li>
+        </ul>
+        <p>These measures can differ without any of them being incorrect. Fees, taxes, inflation, currency changes, and the choice of benchmark also affect how an investor should interpret performance.</p>
+      </section>
+      <div class="page-note"><strong>For education only.</strong> Historical returns do not predict future performance. This calculator does not evaluate suitability, risk, taxes, fees, or investment recommendations.</div>
+    </article>
+  </main>
+  <footer><div class="footer-top"><a class="brand" href="./" aria-label="Financial Tools home"><span class="brand-mark" aria-hidden="true">F</span><span>Financial <b>Tools</b></span></a><p>For learning and planning. Confirm important decisions with a qualified professional.</p></div><nav class="footer-links" aria-label="More information"><a href="about.html">About</a><a href="methodology.html">Calculator methodology</a><a href="money-basics.html">Money basics</a><a href="privacy.html">Privacy</a><a href="index.html#excel-models">Finance models</a></nav></footer>
+  <script src="portfolio-returns.js" defer></script>
+</body>
+</html>

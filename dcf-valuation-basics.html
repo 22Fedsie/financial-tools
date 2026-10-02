@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Learn how a discounted cash flow valuation estimates enterprise value using forecast free cash flow, WACC, terminal value, and sensitivity analysis." />
+  <meta name="theme-color" content="#f7f8f5" />
+  <title>DCF Valuation Basics: Cash Flow, WACC and Terminal Value | Financial Tools</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Financial Tools home"><span class="brand-mark" aria-hidden="true">F</span><span>Financial <b>Tools</b></span></a>
+    <nav class="site-nav" aria-label="Site navigation"><a href="index.html#calculator-guide">Calculators</a><a href="capm-wacc.html">CAPM and WACC</a><a href="relative-valuation-model.html">Relative valuation</a><a href="black-scholes-model.html">Black-Scholes</a></nav>
+  </header>
+  <main id="main-content" class="content-main">
+    <article class="content-page">
+      <p class="page-breadcrumb"><a href="./">Home</a> / DCF valuation basics</p>
+      <p class="eyebrow">Finance models</p>
+      <h1>How a discounted cash flow valuation works.</h1>
+      <p class="page-lede">A discounted cash flow (DCF) model estimates what a business may be worth today by projecting future cash flows and discounting them to the present. The result depends heavily on assumptions; it is a framework for analysis, not an objective price.</p>
+
+      <section class="calculator-card valuation-model" aria-labelledby="dcf-model-title">
+        <div class="card-heading"><div><p class="eyebrow">Interactive model</p><h2 id="dcf-model-title">Five-year FCFF valuation</h2></div><span class="badge">Values stay in this browser</span></div>
+        <p class="card-description">Build a five-year FCFF forecast from revenue growth, operating margins, taxes, depreciation, capital spending, and working capital investment. The model discounts the resulting FCFF, adds a Gordon-growth terminal value, subtracts net debt, and estimates value per diluted share. Monetary amounts are in millions of the selected currency. Example inputs are fictional.</p>
+        <h3 class="model-subheading">Operating assumptions</h3>
+        <div class="model-input-grid">
+          <label>Current revenue ($ millions)<input id="dcf-current-revenue" type="number" min="0" step="0.01" value="1000" /></label>
+          <label>Tax rate on operating income (%)<input id="dcf-tax-rate" type="number" min="0" max="100" step="0.1" value="25" /></label>
+        </div>
+        <h3 class="model-subheading">Five-year forecast assumptions</h3>
+        <p class="model-footnote">Working capital investment is estimated as a percentage of the annual change in revenue. Use zero if no change is assumed.</p>
+        <div class="responsive-model-table"><table class="model-table dcf-forecast-table"><caption>Forecast assumptions by year</caption><thead><tr><th scope="col">Year</th><th scope="col">Revenue growth</th><th scope="col">EBIT margin</th><th scope="col">D&amp;A / revenue</th><th scope="col">CapEx / revenue</th><th scope="col">NWC / revenue change</th></tr></thead><tbody id="dcf-forecast-inputs"></tbody></table></div>
+        <h3 class="model-subheading">Valuation assumptions</h3>
+        <div class="model-input-grid">
+          <label>Currency
+            <select id="dcf-currency"><option value="CAD">CAD</option><option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select>
+          </label>
+          <label>Discount rate (WACC, %)<input id="dcf-wacc" type="number" min="0.01" max="100" step="0.1" value="9" /></label>
+          <label>Perpetual growth rate (%)<input id="dcf-growth" type="number" min="-99" max="99" step="0.1" value="2.5" /></label>
+          <label>Net debt ($ millions)<input id="dcf-net-debt" type="number" step="0.01" value="200" /><small>Enter a negative amount for net cash.</small></label>
+          <label>Diluted shares (millions)<input id="dcf-shares" type="number" min="0.000001" step="0.01" value="50" /></label>
+        </div>
+        <button id="dcf-calculate" type="button">Calculate DCF</button>
+        <p id="dcf-error" class="model-error" role="alert" hidden></p>
+        <div id="dcf-results" class="model-results" aria-live="polite">
+          <h3>Illustrative valuation</h3>
+          <div class="model-output-grid">
+            <div><span>Year 1 forecast revenue</span><b id="dcf-revenue-1">…</b></div>
+            <div><span>Year 5 forecast revenue</span><b id="dcf-revenue-5">…</b></div>
+            <div><span>Year 1 forecast FCFF</span><b id="dcf-fcf-1">…</b></div>
+            <div><span>Year 5 forecast FCFF</span><b id="dcf-fcf-5">…</b></div>
+            <div><span>Present value of forecast FCFF</span><b id="dcf-pv-cash-flows">$0</b></div>
+            <div><span>Present value of terminal value</span><b id="dcf-pv-terminal">$0</b></div>
+            <div><span>Enterprise value</span><b id="dcf-enterprise-value">$0</b></div>
+            <div><span>Equity value</span><b id="dcf-equity-value">$0</b></div>
+            <div><span>Illustrative value per share</span><b id="dcf-value-per-share">$0.00</b></div>
+            <div><span>Terminal value as a share of enterprise value</span><b id="dcf-terminal-share">0%</b></div>
+          </div>
+          <div class="responsive-model-table"><table id="dcf-sensitivity" class="model-table"><caption>Enterprise value sensitivity ($ millions)</caption><thead></thead><tbody></tbody></table></div>
+          <p class="model-footnote">Sensitivity varies WACC and perpetual growth around the values entered above. Combinations where growth equals or exceeds WACC are shown as unavailable.</p>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <h2>From forecast cash flow to enterprise value</h2>
+        <p>In an enterprise DCF, analysts forecast free cash flow to the firm (FCFF), which represents cash available to debt and equity investors after operating needs and reinvestment. The forecast cash flows are discounted using the weighted average cost of capital (WACC).</p>
+        <div class="page-note"><strong>Core relationship:</strong> Enterprise value = present value of forecast FCFF + present value of terminal value.</div>
+        <p>The <a href="https://www.cfainstitute.org/insights/professional-learning/refresher-readings/2026/free-cash-flow-valuation" target="_blank" rel="noreferrer">CFA Institute overview of free-cash-flow valuation</a> describes the FCFF approach and the bridge from firm value to equity value.</p>
+      </section>
+
+      <section class="content-section">
+        <h2>Typical model steps</h2>
+        <ol>
+          <li>Build a forecast for revenue and operating performance.</li>
+          <li>Estimate FCFF after taxes and reinvestment. A common simplified structure is after-tax operating profit, plus non-cash depreciation and amortization, less capital spending and investment in working capital.</li>
+          <li>Estimate a discount rate consistent with the risk and financing of those cash flows. WACC combines the cost of equity and after-tax cost of debt using their capital weights.</li>
+          <li>Discount each forecast cash flow to today's value.</li>
+          <li>Estimate value beyond the explicit forecast period with a terminal value, then discount that amount as well.</li>
+          <li>Subtract net debt and other relevant claims from enterprise value to estimate equity value; divide by diluted shares for an illustrative value per share.</li>
+        </ol>
+      </section>
+
+      <section class="content-section">
+        <h2>Terminal value and sensitivity</h2>
+        <p>One common method assumes cash flows grow at a steady rate after the forecast period: terminal value = next-period FCFF ÷ (WACC − perpetual growth rate). The growth rate must be below WACC for this formula to produce a finite positive result.</p>
+        <p>Terminal value can make up a large share of estimated enterprise value, so small changes in WACC or long-term growth can move the result materially. A sensitivity table helps show a range of outcomes across assumptions; it does not tell you which assumption is correct.</p>
+      </section>
+
+      <section class="content-section">
+        <h2>Small illustrative example</h2>
+        <p>Suppose a hypothetical company is forecast to generate FCFF of $1 million, $2 million, $3 million, $4 million, and $5 million over the next five years. With a 10% WACC and 2.5% perpetual growth assumption, the simplified Gordon-growth terminal value at the end of year five is about $68.3 million. Discounting the annual cash flows and terminal value gives an enterprise value of roughly $53.1 million.</p>
+        <p>This example is deliberately simplified. It does not estimate any real company, include net debt or share count, or establish a fair value. The terminal value accounts for about four-fifths of the illustrative result, showing how sensitive a DCF can be to long-run assumptions.</p>
+      </section>
+
+      <section class="content-section">
+        <h2>Common limitations</h2>
+        <ul>
+          <li>Forecasts can be wrong, especially for companies with unstable or negative cash flows.</li>
+          <li>WACC, terminal growth, and cash-flow assumptions are uncertain and can dominate the output.</li>
+          <li>Debt, leases, minority interests, stock-based compensation, dilution, and other claims may require careful treatment.</li>
+          <li>A standard FCFF and WACC approach may be less suitable for banks and insurers, where debt and regulatory capital are part of operations.</li>
+          <li>A DCF is one valuation approach. Market-based comparisons can provide a different perspective, but depend on the selected peer group and multiples.</li>
+        </ul>
+        <p>This model builds FCFF from a simplified set of operating assumptions, but does not forecast working capital from balance-sheet drivers, estimate WACC, or account for every company-specific claim. For more technical background, see the CFA Institute's <a href="https://www.cfainstitute.org/insights/professional-learning/refresher-readings/2026/free-cash-flow-valuation" target="_blank" rel="noreferrer">free cash flow valuation reading</a>. This site does not publish company-specific valuations or investment recommendations.</p>
+      </section>
+
+      <div class="page-note"><strong>For education only.</strong> DCF outputs are assumption-driven estimates, not forecasts or recommendations to buy, hold, or sell a security. Consider multiple methods and qualified professional advice for decisions that depend on your circumstances.</div>
+    </article>
+  </main>
+  <footer>
+    <div class="footer-top"><a class="brand" href="./" aria-label="Financial Tools home"><span class="brand-mark" aria-hidden="true">F</span><span>Financial <b>Tools</b></span></a><p>For learning and planning. Confirm important decisions with a qualified professional.</p></div>
+    <nav class="footer-links" aria-label="More information"><a href="about.html">About</a><a href="methodology.html">Calculator methodology</a><a href="money-basics.html">Money basics</a><a href="privacy.html">Privacy</a><a href="feedback.html">Feedback</a><a href="index.html#excel-models">Excel models</a></nav>
+  </footer>
+  <script src="dcf-model.js?v=2" defer></script>
+</body>
+</html>

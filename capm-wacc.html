@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Estimate cost of equity with CAPM and weighted average cost of capital with editable assumptions." />
+  <meta name="theme-color" content="#f7f8f5" />
+  <title>CAPM and WACC Calculator | Financial Tools</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Financial Tools home"><span class="brand-mark" aria-hidden="true">F</span><span>Financial <b>Tools</b></span></a>
+    <nav class="site-nav" aria-label="Site navigation"><a href="index.html#calculator-guide">Calculators</a><a href="dcf-valuation-basics.html">DCF model</a><a href="black-scholes-model.html">Black-Scholes</a><a href="methodology.html">How it works</a></nav>
+  </header>
+  <main id="main-content" class="content-main">
+    <article class="content-page">
+      <p class="page-breadcrumb"><a href="./">Home</a> / CAPM and WACC</p>
+      <p class="eyebrow">Finance models</p>
+      <h1>Estimate the cost of equity and capital.</h1>
+      <p class="page-lede">Use CAPM to estimate the required return on equity, then combine it with the after-tax cost of debt to estimate WACC.</p>
+      <section class="calculator-card valuation-model" aria-labelledby="capm-title">
+        <div class="card-heading"><div><p class="eyebrow">Interactive model</p><h2 id="capm-title">CAPM and WACC inputs</h2></div><span class="badge">Values stay in this browser</span></div>
+        <p class="card-description">Enter rates as percentages and beta as a multiple. Example values are illustrative only and are not market data.</p>
+        <div class="model-input-grid">
+          <label>Risk-free rate (%)<input id="capm-risk-free" type="number" step="0.01" value="4" /></label>
+          <label>Levered beta<input id="capm-beta" type="number" step="0.01" value="1.1" /></label>
+          <label>Expected market risk premium (%)<input id="capm-premium" type="number" step="0.01" value="5.5" /></label>
+          <label>Pre-tax cost of debt (%)<input id="capm-debt-cost" type="number" min="0" step="0.01" value="6" /></label>
+          <label>Marginal tax rate (%)<input id="capm-tax" type="number" min="0" max="100" step="0.01" value="25" /></label>
+          <label>Equity share of total capital (%)<input id="capm-equity-weight" type="number" min="0" max="100" step="0.1" value="75" /><small>Debt weight is calculated as the remaining share.</small></label>
+        </div>
+        <button id="capm-calculate" type="button">Calculate CAPM and WACC</button>
+        <p id="capm-error" class="model-error" role="alert" hidden></p>
+        <div id="capm-results" class="model-results" aria-live="polite">
+          <h3>Illustrative required returns</h3>
+          <div class="model-output-grid">
+            <div><span>CAPM cost of equity</span><strong id="capm-output-equity">…</strong></div>
+            <div><span>After-tax cost of debt</span><strong id="capm-output-after-tax">…</strong></div>
+            <div><span>Debt share of capital</span><strong id="capm-output-debt-weight">…</strong></div>
+            <div class="model-output-highlight"><span>Weighted average cost of capital</span><strong id="capm-output-wacc">…</strong></div>
+          </div>
+          <p id="capm-equation" class="model-footnote"></p>
+        </div>
+      </section>
+      <section class="content-section"><h2>How the estimate works</h2><p>CAPM cost of equity = risk-free rate + beta × expected market risk premium. Beta represents the stock's sensitivity to market returns in the chosen estimation period.</p><p>WACC = equity weight × cost of equity + debt weight × pre-tax cost of debt × (1 − tax rate). The capital weights should reflect a defensible market-value financing mix. The result is only as useful as its assumptions.</p></section>
+      <section class="content-section"><h2>Use a matching discount rate</h2><p>WACC is commonly paired with free cash flow to the firm. Cash flow to equity is generally discounted using cost of equity instead. Keep cash flows, currency, inflation basis, and discount-rate assumptions consistent.</p><p>Continue to the <a href="dcf-valuation-basics.html">DCF valuation model</a> to use a discount rate in a cash-flow valuation.</p></section>
+      <div class="page-note"><strong>For education only.</strong> CAPM and WACC depend on estimation choices. This calculator does not estimate beta, market returns, debt value, or a security's fair value.</div>
+    </article>
+  </main>
+  <footer><div class="footer-top"><a class="brand" href="./" aria-label="Financial Tools home"><span class="brand-mark" aria-hidden="true">F</span><span>Financial <b>Tools</b></span></a><p>For learning and planning. Confirm important decisions with a qualified professional.</p></div><nav class="footer-links" aria-label="More information"><a href="about.html">About</a><a href="methodology.html">Calculator methodology</a><a href="money-basics.html">Money basics</a><a href="privacy.html">Privacy</a><a href="index.html#excel-models">Finance models</a></nav></footer>
+  <script src="capm-wacc.js" defer></script>
+</body>
+</html>

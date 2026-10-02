@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://financial-tools-c5l.pages.dev/sitemap.xml

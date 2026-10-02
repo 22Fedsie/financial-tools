@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Compare trailing P/E, EV/EBITDA, and P/S multiples with peers and calculate illustrative implied share-price ranges." />
+  <meta name="theme-color" content="#f7f8f5" />
+  <title>Relative Valuation Model: P/E, EV/EBITDA and P/S | Financial Tools</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Financial Tools home"><span class="brand-mark" aria-hidden="true">F</span><span>Financial <b>Tools</b></span></a>
+    <nav class="site-nav" aria-label="Site navigation"><a href="index.html#calculator-guide">Calculators</a><a href="capm-wacc.html">CAPM and WACC</a><a href="dcf-valuation-basics.html">DCF model</a><a href="black-scholes-model.html">Black-Scholes</a></nav>
+  </header>
+  <main id="main-content" class="content-main">
+    <article class="content-page">
+      <p class="page-breadcrumb"><a href="./">Home</a> / Relative valuation model</p>
+      <p class="eyebrow">Finance models</p>
+      <h1>Compare valuation multiples with peers.</h1>
+      <p class="page-lede">Enter a target company's trailing financial metrics and a consistent set of peer multiples. The model shows a low, median, and high implied share-price range for P/E, EV/EBITDA, and P/S separately.</p>
+
+      <section class="calculator-card valuation-model" aria-labelledby="relative-input-title">
+        <div class="card-heading"><div><p class="eyebrow">Interactive model</p><h2 id="relative-input-title">Company and peer inputs</h2></div><span class="badge">Values stay in this browser</span></div>
+        <p class="card-description">Use trailing twelve-month inputs for the target and peers. Multiples should use the same date, currency, accounting basis, and share-count convention. Example values are fictional and are not connected to market data.</p>
+        <div class="model-input-grid">
+          <label>Currency<select id="relative-currency"><option value="CAD">CAD</option><option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></label>
+          <label>Target diluted EPS (per share)<input id="relative-eps" type="number" step="0.01" value="2.5" /></label>
+          <label>Target EBITDA ($ millions)<input id="relative-ebitda" type="number" step="0.01" value="500" /></label>
+          <label>Target revenue ($ millions)<input id="relative-revenue" type="number" min="0" step="0.01" value="1200" /></label>
+          <label>Target net debt ($ millions)<input id="relative-net-debt" type="number" step="0.01" value="200" /><small>Enter a negative amount for net cash.</small></label>
+          <label>Target diluted shares (millions)<input id="relative-shares" type="number" min="0.000001" step="0.01" value="100" /></label>
+        </div>
+
+        <h3 class="model-subheading">Peer multiples</h3>
+        <p class="model-footnote">Use positive multiples only. Leave a multiple blank if it is not meaningful for that peer, such as P/E for a company with negative earnings. A method is unavailable when the target metric it needs is zero or negative.</p>
+        <div class="peer-table-wrap">
+          <table class="model-table peer-table">
+            <caption>Trailing valuation multiples</caption>
+            <thead><tr><th scope="col">Peer</th><th scope="col">P/E (x)</th><th scope="col">EV/EBITDA (x)</th><th scope="col">P/S (x)</th></tr></thead>
+            <tbody id="peer-inputs"></tbody>
+          </table>
+        </div>
+        <button id="relative-calculate" type="button">Calculate peer valuation ranges</button>
+        <p id="relative-error" class="model-error" role="alert" hidden></p>
+        <div id="relative-results" class="model-results" aria-live="polite">
+          <h3>Illustrative implied value per share</h3>
+          <div class="responsive-model-table">
+            <table class="model-table">
+              <caption>Separate peer-multiple methods</caption>
+              <thead><tr><th scope="col">Method</th><th scope="col">Peer multiple range</th><th scope="col">Median multiple and peers used</th><th scope="col">Implied share-price range</th><th scope="col">Median implied price</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">P/E</th><td id="relative-pe-range">Not available</td><td id="relative-pe-median">Not available</td><td id="relative-pe-price-range">Not available</td><td id="relative-pe-price-median">Not available</td></tr>
+                <tr><th scope="row">EV/EBITDA</th><td id="relative-ev-range">Not available</td><td id="relative-ev-median">Not available</td><td id="relative-ev-price-range">Not available</td><td id="relative-ev-price-median">Not available</td></tr>
+                <tr><th scope="row">P/S</th><td id="relative-ps-range">Not available</td><td id="relative-ps-median">Not available</td><td id="relative-ps-price-range">Not available</td><td id="relative-ps-price-median">Not available</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="model-footnote">P/E uses target diluted EPS. EV/EBITDA applies the multiple to target EBITDA, then subtracts net debt. P/S applies the multiple to target revenue. The model does not average the three methods because each has distinct limitations.</p>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <h2>Choosing comparable companies</h2>
+        <p>A useful peer group has business models, growth, profitability, risk, and capital needs that are reasonably comparable. An industry label alone is not enough. Consider why each peer belongs in the group and remove companies whose accounting or business mix makes the comparison misleading.</p>
+        <p>Market data must be aligned by date and currency. Match each multiple's numerator and denominator: equity value to equity metrics for P/E and P/S, and enterprise value to EBITDA for EV/EBITDA. Inputs on this page are not live market data.</p>
+      </section>
+
+      <section class="content-section">
+        <h2>Read the range carefully</h2>
+        <p>The low and high values reflect the lowest and highest positive peer multiples entered, while the center uses the median. A wide range can indicate that the selected peers or their circumstances differ. Multiples summarize market pricing at a point in time; they do not establish what a company should be worth.</p>
+        <p>For a cash-flow approach, use the <a href="dcf-valuation-basics.html">DCF valuation model</a>. It uses forecast FCFF, WACC, and terminal growth rather than market peer multiples.</p>
+      </section>
+
+      <div class="page-note"><strong>For education only.</strong> This model uses assumptions supplied by the visitor. It does not provide a company-specific recommendation or tell you to buy, hold, or sell a security.</div>
+    </article>
+  </main>
+  <footer>
+    <div class="footer-top"><a class="brand" href="./" aria-label="Financial Tools home"><span class="brand-mark" aria-hidden="true">F</span><span>Financial <b>Tools</b></span></a><p>For learning and planning. Confirm important decisions with a qualified professional.</p></div>
+    <nav class="footer-links" aria-label="More information"><a href="about.html">About</a><a href="methodology.html">Calculator methodology</a><a href="money-basics.html">Money basics</a><a href="privacy.html">Privacy</a><a href="feedback.html">Feedback</a><a href="index.html#excel-models">Excel models</a></nav>
+  </footer>
+  <script src="relative-valuation-model.js" defer></script>
+</body>
+</html>

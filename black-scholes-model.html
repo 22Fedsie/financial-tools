@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Explore theoretical European call and put option values with the Black-Scholes model." />
+  <meta name="theme-color" content="#f7f8f5" />
+  <title>Black-Scholes Option Model | Financial Tools</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Financial Tools home"><span class="brand-mark" aria-hidden="true">F</span><span>Financial <b>Tools</b></span></a>
+    <nav class="site-nav" aria-label="Site navigation"><a href="index.html#calculator-guide">Calculators</a><a href="capm-wacc.html">CAPM and WACC</a><a href="dcf-valuation-basics.html">DCF model</a><a href="methodology.html">How it works</a></nav>
+  </header>
+  <main id="main-content" class="content-main">
+    <article class="content-page">
+      <p class="page-breadcrumb"><a href="./">Home</a> / Black-Scholes option model</p>
+      <p class="eyebrow">Finance models</p>
+      <h1>Explore a theoretical option value.</h1>
+      <p class="page-lede">The Black-Scholes model estimates a European option's value from the underlying price, strike, time, rates, and volatility.</p>
+      <section class="calculator-card valuation-model" aria-labelledby="bs-title">
+        <div class="card-heading"><div><p class="eyebrow">Interactive model</p><h2 id="bs-title">Black-Scholes inputs</h2></div><span class="badge">Values stay in this browser</span></div>
+        <p class="card-description">Enter rates as percentages, for example 4 for 4%. The example values are fictional and are not live quotes.</p>
+        <div class="model-input-grid">
+          <label>Option type<select id="bs-type"><option value="call">Call</option><option value="put">Put</option></select></label>
+          <label>Underlying price<input id="bs-spot" type="number" min="0" step="0.01" value="100" /></label>
+          <label>Strike price<input id="bs-strike" type="number" min="0" step="0.01" value="100" /></label>
+          <label>Time to expiration (years)<input id="bs-time" type="number" min="0" step="0.01" value="1" /></label>
+          <label>Risk-free rate (%)<input id="bs-rate" type="number" step="0.01" value="4" /></label>
+          <label>Annualized volatility (%)<input id="bs-volatility" type="number" min="0" step="0.01" value="25" /></label>
+          <label>Continuous dividend yield (%)<input id="bs-dividend" type="number" min="0" step="0.01" value="0" /></label>
+        </div>
+        <button id="bs-calculate" type="button">Calculate theoretical value</button>
+        <p id="bs-error" class="model-error" role="alert" hidden></p>
+        <div id="bs-results" class="model-results" aria-live="polite">
+          <h3 id="bs-output-title">Illustrative call value</h3>
+          <div class="model-output-grid model-output-grid-narrow">
+            <div class="model-output-highlight"><span>Theoretical value per option unit</span><strong id="bs-value">…</strong></div>
+            <div><span>d₁</span><strong id="bs-d1">…</strong></div>
+            <div><span>d₂</span><strong id="bs-d2">…</strong></div>
+          </div>
+          <p class="model-footnote">The model assumes a European-style option, continuous rates and dividend yield, and constant volatility over the option's life.</p>
+        </div>
+      </section>
+      <section class="content-section"><h2>What the model represents</h2><p>A call gives its holder the right to buy at the strike; a put gives the right to sell. The model estimates a theoretical value under simplifying assumptions. It is not a forecast of the option's future market price.</p><p>Higher volatility and more time generally increase the value of a plain call or put, while rates, dividends, and whether the option is a call or put affect the result differently.</p></section>
+      <section class="content-section"><h2>Important limitations</h2><p>Real options may be American-style and exercise can occur before expiration. Volatility, interest rates, dividends, transaction costs, liquidity, taxes, and market conditions may change. The model does not estimate implied volatility or account for early exercise, discrete dividends, or changing volatility.</p></section>
+      <div class="page-note"><strong>For education only.</strong> Options can lose value rapidly and may involve substantial risk. This model is not a trading signal or a recommendation to buy or sell an option.</div>
+    </article>
+  </main>
+  <footer><div class="footer-top"><a class="brand" href="./" aria-label="Financial Tools home"><span class="brand-mark" aria-hidden="true">F</span><span>Financial <b>Tools</b></span></a><p>For learning and planning. Confirm important decisions with a qualified professional.</p></div><nav class="footer-links" aria-label="More information"><a href="about.html">About</a><a href="methodology.html">Calculator methodology</a><a href="money-basics.html">Money basics</a><a href="privacy.html">Privacy</a><a href="index.html#excel-models">Finance models</a></nav></footer>
+  <script src="black-scholes-model.js" defer></script>
+</body>
+</html>

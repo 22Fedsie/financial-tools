@@ -1,31 +1,37 @@
 # Financial Tools
 
-Free, practical financial calculators and tools, with a growing library of advanced financial models and Excel-based tools.
+Financial Tools is a Canadian-focused collection of free financial calculators, interactive models, and plain-language financial education. The site uses static HTML, CSS, and JavaScript. Calculations run in the visitor's browser and the models use fictional example values rather than live market data.
 
-## Calculators
+## Site features
 
-- **Mortgage payment:** Estimates a monthly payment using a Canadian semi-annual interest-rate conversion. It excludes property tax, insurance, and other costs.
-- **Investment growth and savings goal:** Projects an ending value from an initial amount and monthly contributions, compares it with a target, and estimates the monthly contribution needed to reach that target. It converts the estimated annual return to a monthly rate and assumes contributions are made at the end of each month. Returns are uncertain; this is an illustration, not a forecast or recommendation.
-- **Debt payoff:** Estimates payoff time, interest, and total paid for a fixed monthly payment. It approximates interest monthly; actual credit-card issuers may calculate interest daily or apply payments differently.
-- **Rent versus buy:** Compares estimated monthly housing costs and end-of-period assets, based on home-price change, rent increases, and investment-return assumptions. It is a simplified scenario comparison, not a recommendation.
-- **RRSP versus TFSA:** Compares projected after-tax account values using a shared monthly take-home budget and user-entered marginal tax rates. It is a simplified illustration and excludes contribution limits and account-specific rules.
-- **Net worth:** Calculates total assets, total debts, and the difference between them.
+The home page includes mortgage, investment growth and savings goal, debt payoff, rent-versus-buy, RRSP-versus-TFSA, and net worth calculators.
 
-The site is designed to grow one calculator at a time.
+Interactive models are available on separate pages:
 
-## Run on your Mac
+- `portfolio-returns.html`: holding-period, annualized, money-weighted, and time-weighted returns, plus a benchmark comparison.
+- `capm-wacc.html`: CAPM cost of equity and weighted average cost of capital.
+- `dcf-valuation-basics.html`: a driver-based five-year FCFF forecast, enterprise valuation, and WACC and growth sensitivity.
+- `relative-valuation-model.html`: peer-based P/E, EV/EBITDA, and P/S valuation ranges.
+- `black-scholes-model.html`: theoretical European call and put option values.
+- `savings-goal-planner.html`: a savings target projection.
 
-1. Open Terminal and move into the `financial-tools` project folder.
+`money-basics.html` provides Canadian financial literacy guides. `methodology.html` documents model formulas and assumptions. The calculators do not provide personalized financial, investment, or tax advice.
+
+## Privacy
+
+The site does not use Cloudflare Web Analytics, an email signup, or a feedback form. Calculator inputs and results are processed in the browser. Cloudflare Pages may process technical request information to serve and protect the site. See `privacy.html` for details.
+
+## Run locally
+
+The project has no build step or package dependencies.
+
+1. Open Terminal in this project folder.
 2. Run `python3 -m http.server 8000`.
-3. Open <http://localhost:8000> in your browser.
-4. Press Control+C in Terminal when you want to stop the local website.
+3. Open <http://localhost:8000> in a browser.
+4. Press Control+C in Terminal to stop the local preview.
 
-This starter uses plain HTML, CSS, and JavaScript, so it does not need Node.js or extra packages.
+## Deploy
 
-## Project files
+The production site is hosted on Cloudflare Pages at <https://financial-tools-c5l.pages.dev/> and is connected to the `22Fedsie/financial-tools` GitHub repository. The production branch is `main`. A push to that branch triggers a Pages deployment. Review the local preview before syncing changes to GitHub.
 
-- `index.html` contains the page content and calculator form.
-- `styles.css` controls the layout and appearance.
-- `app.js` calculates results for all six tools.
-
-The project is connected to the [`financial-tools` GitHub repository](https://github.com/22Fedsie/financial-tools).
+This is a static site, so Cloudflare Pages does not need a build command. The repository root is the output directory.
