@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Compare trailing P/E, EV/EBITDA, and P/S multiples with peers and calculate illustrative implied share-price ranges." />
+  <meta name="description" content="Compare P/E, EV/EBITDA, EV/Sales, P/S, P/B, and P/TBV valuation methods, with guidance by company type." />
   <meta name="theme-color" content="#f7f8f5" />
-  <title>Relative Valuation Model: P/E, EV/EBITDA and P/S | Financial Tools</title>
+  <title>Relative Valuation Model: Choose Multiples by Company Type | Financial Tools</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="canonical" href="https://financial-tools-c5l.pages.dev/relative-valuation-model" />
 </head>
@@ -20,28 +20,38 @@
       <p class="page-breadcrumb"><a href="./">Home</a> / Relative valuation model</p>
       <p class="eyebrow">Finance models</p>
       <h1>Compare valuation multiples with peers.</h1>
-      <p class="page-lede">Enter a target company's trailing financial metrics and a consistent set of peer multiples. The model shows a low, median, and high implied share-price range for P/E, EV/EBITDA, and P/S separately.</p>
+      <p class="page-lede">The right comparison depends on how a company earns money, whether it is profitable, and how it finances itself. Choose a business profile, enter relevant peer multiples, and compare each method separately.</p>
 
       <section class="calculator-card valuation-model" aria-labelledby="relative-input-title">
         <div class="card-heading"><div><p class="eyebrow">Interactive model</p><h2 id="relative-input-title">Company and peer inputs</h2></div><span class="badge">Values stay in this browser</span></div>
         <p class="card-description">Use trailing twelve-month inputs for the target and peers. Multiples should use the same date, currency, accounting basis, and share-count convention. Example values are fictional and are not connected to market data.</p>
+        <label>Business profile<select id="relative-profile"><option value="general">General non-financial company</option><option value="growth">Early-stage or high-growth technology</option><option value="bank">Bank or financial institution</option><option value="asset">Asset-heavy company</option></select></label>
+        <div id="relative-profile-guidance" class="account-callout" aria-live="polite"></div>
         <div class="model-input-grid">
           <label>Currency<select id="relative-currency"><option value="CAD">CAD</option><option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></label>
-          <label>Target diluted EPS (per share)<input id="relative-eps" type="number" step="0.01" value="2.5" /></label>
+          <label>Target diluted EPS (per share)<input id="relative-eps" type="number" step="0.01" value="2.5" /><small>Use trailing or forward EPS consistently with peer P/E.</small></label>
           <label>Target EBITDA ($ millions)<input id="relative-ebitda" type="number" step="0.01" value="500" /></label>
           <label>Target revenue ($ millions)<input id="relative-revenue" type="number" min="0" step="0.01" value="1200" /></label>
-          <label>Target net debt ($ millions)<input id="relative-net-debt" type="number" step="0.01" value="200" /><small>Enter a negative amount for net cash.</small></label>
+          <label>Target net debt ($ millions)<input id="relative-net-debt" type="number" step="0.01" value="200" /><small>Needed for EV/EBITDA and EV/Sales. Enter a negative amount for net cash.</small></label>
           <label>Target diluted shares (millions)<input id="relative-shares" type="number" min="0.000001" step="0.01" value="100" /></label>
+          <label>Target book equity ($ millions)<input id="relative-book-equity" type="number" step="0.01" value="900" /></label>
+          <label>Target tangible book equity ($ millions)<input id="relative-tangible-book" type="number" step="0.01" value="700" /><small>Book equity less goodwill and other intangible assets.</small></label>
+          <label>Target interest-bearing debt ($ millions)<input id="relative-total-debt" type="number" min="0" step="0.01" value="350" /><small>Used only for the optional debt-to-equity context ratio. Leave blank if not relevant.</small></label>
         </div>
 
         <h3 class="model-subheading">Peer multiples</h3>
-        <p class="model-footnote">Use positive multiples only. Leave a multiple blank if it is not meaningful for that peer, such as P/E for a company with negative earnings. A method is unavailable when the target metric it needs is zero or negative.</p>
+        <p class="model-footnote">Use positive valuation multiples and leave unavailable methods blank. Use the same period, currency, accounting definitions, and share-count basis for the target and peers. Methods requiring a non-positive target metric will be marked unavailable.</p>
         <div class="peer-table-wrap">
           <table class="model-table peer-table">
-            <caption>Trailing valuation multiples</caption>
-            <thead><tr><th scope="col">Peer</th><th scope="col">P/E (x)</th><th scope="col">EV/EBITDA (x)</th><th scope="col">P/S (x)</th></tr></thead>
+            <caption>Peer valuation multiples and leverage context</caption>
+            <thead><tr><th scope="col">Peer</th><th scope="col">P/E (x)</th><th scope="col">EV/EBITDA (x)</th><th scope="col">EV/Sales (x)</th><th scope="col">P/S (x)</th><th scope="col">P/B (x)</th><th scope="col">P/TBV (x)</th><th scope="col">D/E (x)</th></tr></thead>
             <tbody id="peer-inputs"></tbody>
           </table>
+        </div>
+        <p class="model-footnote">D/E is shown only as leverage context. It does not produce an implied share value and can be misleading for banks, where deposits and regulatory capital need specialized treatment.</p>
+        <div class="model-output-grid analyzer-metrics">
+          <div><span>Target debt-to-equity</span><strong id="relative-target-de">Not available</strong></div>
+          <div><span>Median peer debt-to-equity</span><strong id="relative-peer-de">Not available</strong></div>
         </div>
         <button id="relative-calculate" type="button">Calculate peer valuation ranges</button>
         <p id="relative-error" class="model-error" role="alert" hidden></p>
@@ -54,23 +64,39 @@
               <tbody>
                 <tr><th scope="row">P/E</th><td id="relative-pe-range">Not available</td><td id="relative-pe-median">Not available</td><td id="relative-pe-price-range">Not available</td><td id="relative-pe-price-median">Not available</td></tr>
                 <tr><th scope="row">EV/EBITDA</th><td id="relative-ev-range">Not available</td><td id="relative-ev-median">Not available</td><td id="relative-ev-price-range">Not available</td><td id="relative-ev-price-median">Not available</td></tr>
+                <tr><th scope="row">EV/Sales</th><td id="relative-evsales-range">Not available</td><td id="relative-evsales-median">Not available</td><td id="relative-evsales-price-range">Not available</td><td id="relative-evsales-price-median">Not available</td></tr>
                 <tr><th scope="row">P/S</th><td id="relative-ps-range">Not available</td><td id="relative-ps-median">Not available</td><td id="relative-ps-price-range">Not available</td><td id="relative-ps-price-median">Not available</td></tr>
+                <tr><th scope="row">P/B</th><td id="relative-pb-range">Not available</td><td id="relative-pb-median">Not available</td><td id="relative-pb-price-range">Not available</td><td id="relative-pb-price-median">Not available</td></tr>
+                <tr><th scope="row">P/TBV</th><td id="relative-ptbv-range">Not available</td><td id="relative-ptbv-median">Not available</td><td id="relative-ptbv-price-range">Not available</td><td id="relative-ptbv-price-median">Not available</td></tr>
               </tbody>
             </table>
           </div>
-          <p class="model-footnote">P/E uses target diluted EPS. EV/EBITDA applies the multiple to target EBITDA, then subtracts net debt. P/S applies the multiple to target revenue. The model does not average the three methods because each has distinct limitations.</p>
+          <p class="model-footnote">Equity multiples apply directly to equity measures. Enterprise-value multiples convert to equity value by subtracting net debt, then divide by diluted shares. These methods are not averaged because they measure different things.</p>
         </div>
+      </section>
+
+      <section class="content-section">
+        <h2>Match the measure to the business</h2>
+        <div class="payoff-table-wrap"><table class="payoff-table"><thead><tr><th scope="col">Measure</th><th scope="col">What it compares</th><th scope="col">When it can help</th><th scope="col">Main caution</th></tr></thead><tbody>
+          <tr><th scope="row">P/E</th><td>Share price to earnings per share</td><td>Companies with positive, reasonably stable earnings</td><td>EPS is an input, not a valuation ratio by itself. P/E is not meaningful with negative EPS.</td></tr>
+          <tr><th scope="row">EV/EBITDA</th><td>Enterprise value to EBITDA</td><td>Profitable non-financial businesses where capital structures differ</td><td>Not meaningful with negative EBITDA; ignores capital spending and working-capital needs.</td></tr>
+          <tr><th scope="row">EV/Sales or P/S</th><td>Enterprise or equity value to revenue</td><td>Companies with positive revenue but low or negative earnings</td><td>Revenue alone says little about margins, growth quality, cash burn, or debt.</td></tr>
+          <tr><th scope="row">P/B or P/TBV</th><td>Share price to book or tangible book value per share</td><td>Banks and some asset-heavy businesses</td><td>Interpret with profitability, asset quality, and accounting marks. Tangible book definitions must match.</td></tr>
+          <tr><th scope="row">D/E</th><td>Interest-bearing debt to book equity</td><td>Leverage and balance-sheet risk context</td><td>It is not a price multiple. Debt definitions vary, and bank capital analysis needs sector-specific measures.</td></tr>
+        </tbody></table></div>
+        <p>For banks, deposits and borrowing are part of operations, so EV/EBITDA is usually a poor fit. Analysts often examine P/B, P/TBV, and P/E alongside return on equity, capital adequacy, asset quality, and net interest margin. For early-stage technology companies, EV/Sales or P/S may be usable when revenue is meaningful, but compare growth, gross margins, retention, and funding needs as well. A chosen multiple does not make unlike companies comparable.</p>
+        <p>Further reading: <a href="https://www.cfainstitute.org/insights/professional-learning/refresher-readings/2026/market-based-valuation-price-enterprise-value-multiples" target="_blank" rel="noreferrer">CFA Institute on price and enterprise-value multiples</a> and <a href="https://pages.stern.nyu.edu/~adamodar/New_Home_Page/littlebook/financialsvccompanies.htm" target="_blank" rel="noreferrer">Aswath Damodaran on financial-services companies</a>.</p>
       </section>
 
       <section class="content-section">
         <h2>Choosing comparable companies</h2>
         <p>A useful peer group has business models, growth, profitability, risk, and capital needs that are reasonably comparable. An industry label alone is not enough. Consider why each peer belongs in the group and remove companies whose accounting or business mix makes the comparison misleading.</p>
-        <p>Market data must be aligned by date and currency. Match each multiple's numerator and denominator: equity value to equity metrics for P/E and P/S, and enterprise value to EBITDA for EV/EBITDA. Inputs on this page are not live market data.</p>
+        <p>Market data must be aligned by date and currency. Match each multiple's numerator and denominator: equity value to equity metrics for P/E, P/S, P/B, and P/TBV; enterprise value to EBITDA or sales for EV/EBITDA and EV/Sales. Inputs on this page are not live market data.</p>
       </section>
 
       <section class="content-section">
         <h2>Read the range carefully</h2>
-        <p>The low and high values reflect the lowest and highest positive peer multiples entered, while the center uses the median. A wide range can indicate that the selected peers or their circumstances differ. Multiples summarize market pricing at a point in time; they do not establish what a company should be worth.</p>
+        <p>The low and high values reflect the lowest and highest positive peer multiples entered, while the center uses the median. A wide range can indicate that the selected peers or their circumstances differ. Multiples are affected by growth, risk, margins, and returns on capital. They summarize market pricing at a point in time; they do not establish what a company should be worth.</p>
         <p>For a cash-flow approach, use the <a href="dcf-valuation-basics.html">DCF valuation model</a>. It uses forecast FCFF, WACC, and terminal growth rather than market peer multiples.</p>
       </section>
 
